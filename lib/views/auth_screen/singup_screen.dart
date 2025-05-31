@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:quickshop/consts/consts.dart';
 import 'package:quickshop/consts/list.dart';
-import 'package:quickshop/widgets_common/appLogo_widget.dart';
-import 'package:quickshop/widgets_common/bg_widget.dart';
-import 'package:quickshop/widgets_common/costom_textFiled.dart';
-import 'package:quickshop/widgets_common/our_button.dart';
+import 'package:quickshop/views/widgets_common/appLogo_widget.dart';
+import 'package:quickshop/views/widgets_common/bg_widget.dart';
+import 'package:quickshop/views/widgets_common/costom_textFiled.dart';
+import 'package:quickshop/views/widgets_common/our_button.dart';
 import 'package:get/get.dart';
 
 class SingupScreen extends StatefulWidget {
@@ -65,28 +65,28 @@ class _SingupScreenState extends State<SingupScreen> {
                                   TextSpan(
                                     text: "I agree to the ",
                                     style: TextStyle(
-                                      fontFamily: bold,
+                                      fontFamily: regular,
                                       color: redColor,
                                     ),
                                   ),
                                   TextSpan(
                                     text: termAndCond,
                                     style: TextStyle(
-                                      fontFamily: bold,
+                                      fontFamily: regular,
                                       color: redColor,
                                     ),
                                   ),
                                   TextSpan(
                                     text: " &",
                                     style: TextStyle(
-                                      fontFamily: bold,
+                                      fontFamily: regular,
                                       color: fontGrey,
                                     ),
                                   ),
                                   TextSpan(
                                     text: privacyPolicy,
                                     style: TextStyle(
-                                      fontFamily: bold,
+                                      fontFamily: regular,
                                       color: redColor,
                                     ),
                                   ),
@@ -98,7 +98,7 @@ class _SingupScreenState extends State<SingupScreen> {
                       ),
                       5.heightBox,
                       ourButton(
-                        color: redColor,
+                        color: isCheck == true ? redColor : lightGrey,
                         title: singup,
                         textcolor: whiteColor,
                         onPress: () {},

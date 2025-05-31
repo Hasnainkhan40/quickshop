@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:quickshop/consts/consts.dart';
 import 'package:quickshop/views/splash_screen/splash_screen.dart';
 import 'package:get/get.dart';
@@ -8,7 +7,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +17,11 @@ class MyApp extends StatelessWidget {
       title: appname,
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.transparent,
-        appBarTheme: AppBarTheme(backgroundColor: Colors.transparent),
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.transparent,
+          //set the appbar color
+          iconTheme: IconThemeData(color: darkFontGrey),
+        ),
         fontFamily: regular,
       ),
       home: SplashScreen(),

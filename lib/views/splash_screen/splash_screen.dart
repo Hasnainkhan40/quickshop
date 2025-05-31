@@ -1,6 +1,6 @@
 import 'package:quickshop/consts/consts.dart';
 import 'package:quickshop/views/auth_screen/login_screen.dart';
-import 'package:quickshop/widgets_common/appLogo_widget.dart';
+import 'package:quickshop/views/widgets_common/appLogo_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:quickshop/consts/colors.dart';
 import 'package:quickshop/consts/images.dart';

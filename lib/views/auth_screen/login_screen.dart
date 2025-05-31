@@ -1,10 +1,11 @@
 import 'package:quickshop/consts/consts.dart';
 import 'package:quickshop/consts/list.dart';
+import 'package:quickshop/views/homescreen/home.dart';
 import 'package:quickshop/views/auth_screen/singup_screen.dart';
-import 'package:quickshop/widgets_common/appLogo_widget.dart';
-import 'package:quickshop/widgets_common/bg_widget.dart';
-import 'package:quickshop/widgets_common/costom_textFiled.dart';
-import 'package:quickshop/widgets_common/our_button.dart';
+import 'package:quickshop/views/widgets_common/appLogo_widget.dart';
+import 'package:quickshop/views/widgets_common/bg_widget.dart';
+import 'package:quickshop/views/widgets_common/costom_textFiled.dart';
+import 'package:quickshop/views/widgets_common/our_button.dart';
 import 'package:get/get.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -38,7 +39,9 @@ class LoginScreen extends StatelessWidget {
                         color: redColor,
                         title: login,
                         textcolor: whiteColor,
-                        onPress: () {},
+                        onPress: () {
+                          Get.to(() => Homes());
+                        },
                       ).box.width(context.screenWidth - 50).make(),
                       5.heightBox,
                       createNewAccount.text.color(fontGrey).make(),
