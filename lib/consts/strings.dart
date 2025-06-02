@@ -12,6 +12,7 @@ const name = "Name";
 const nameHint = "Your name";
 const forgetPass = "Forget Password";
 const login = "Log in";
+const logout = "Log out";
 const singup = "Sing up";
 const createNewAccount = "or , create a new account";
 const loginwhit = "Login whit";
@@ -62,3 +63,6 @@ const video = "Video",
     returnPolicy = "Return Policy",
     supportPolicy = "Support Policy",
     productsyoumayLike = "products you may also like";
+
+//profile seting
+const wishlist = "My Wishlist", orders = "My Orders", messages = "Messages";

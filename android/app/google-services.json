@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "802999598719",
+    "project_id": "quickshop-d52c5",
+    "storage_bucket": "quickshop-d52c5.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:802999598719:android:8bfca00eb32d5b84f4894a",
+        "android_client_info": {
+          "package_name": "com.example.quickshop"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJh6j322dqdN8nts_hRlusslvj4Am6euU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

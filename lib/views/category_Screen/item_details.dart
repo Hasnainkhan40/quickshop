@@ -27,7 +27,7 @@ class ItemDetails extends StatelessWidget {
                   children: [
                     VxSwiper.builder(
                       autoPlay: true,
-                      height: 250,
+                      height: 350,
                       itemCount: 3,
                       aspectRatio: 16 / 9,
                       itemBuilder: (contex, index) {
