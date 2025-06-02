@@ -53,3 +53,12 @@ const womenClothing = "Women Clothing",
     jewelery = "Jewelwry",
     cellphone = "Cellphone & Tab",
     furniture = "Funiture";
+
+//Item detail satring
+
+const video = "Video",
+    reviews = "Reviews",
+    sellerpolicy = "Seller Policy",
+    returnPolicy = "Return Policy",
+    supportPolicy = "Support Policy",
+    productsyoumayLike = "products you may also like";

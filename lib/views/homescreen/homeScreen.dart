@@ -168,7 +168,7 @@ class Homescreen extends StatelessWidget {
                                           children: [
                                             Image.asset(
                                               imgP1,
-                                              width: 150,
+                                              width: 130,
                                               fit: BoxFit.cover,
                                             ),
                                             10.heightBox,
