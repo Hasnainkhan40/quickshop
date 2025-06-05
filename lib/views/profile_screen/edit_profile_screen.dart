@@ -51,10 +51,18 @@ class EditProfileScreen extends StatelessWidget {
                           titel: name,
                           isPass: false,
                         ),
+                        10.heightBox,
                         costomTextField(
-                          controller: controller.passController,
+                          controller: controller.oldpassController,
                           hint: password,
-                          titel: password,
+                          titel: oldpass,
+                          isPass: true,
+                        ),
+                        10.heightBox,
+                        costomTextField(
+                          controller: controller.newpassController,
+                          hint: password,
+                          titel: newpass,
                           isPass: true,
                         ),
                         20.heightBox,
@@ -68,12 +76,31 @@ class EditProfileScreen extends StatelessWidget {
                                 color: redColor,
                                 onPress: () async {
                                   controller.isLoding(true);
-                                  await controller.uodateProfile(
-                                    imageUrl: '',
-                                    name: controller.nameController.text,
-                                    password: controller.passController.text,
-                                  );
-                                  VxToast.show(context, msg: "Update");
+
+                                  //if old password matches data base
+                                  if (data['password'] ==
+                                      controller.oldpassController.text) {
+                                    await controller.changeAuthPassword(
+                                      email: data['email'],
+                                      password:
+                                          controller.oldpassController.text,
+                                      newpassword:
+                                          controller.newpassController.text,
+                                    );
+
+                                    await controller.uodateProfile(
+                                      imageUrl: '',
+                                      name: controller.nameController.text,
+                                      password:
+                                          controller.newpassController.text,
+                                    );
+                                    VxToast.show(context, msg: "Update");
+                                  } else {
+                                    VxToast.show(
+                                      context,
+                                      msg: "Wrong old password",
+                                    );
+                                  }
                                 },
                                 title: "Save",
                                 textcolor: whiteColor,

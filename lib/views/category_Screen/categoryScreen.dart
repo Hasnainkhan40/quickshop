@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:quickshop/consts/consts.dart';
 import 'package:quickshop/consts/list.dart';
+import 'package:quickshop/controller/product_controller.dart';
 import 'package:quickshop/views/category_Screen/category_details.dart';
 import 'package:quickshop/views/widgets_common/bg_widget.dart';
 
@@ -8,6 +9,7 @@ class Categoryscreen extends StatelessWidget {
   const Categoryscreen({super.key});
   @override
   Widget build(BuildContext context) {
+    var controller = Get.put(ProductController());
     return bgWidget(
       Scaffold(
         appBar: AppBar(title: categories.text.fontFamily(bold).white.make()),
@@ -42,6 +44,7 @@ class Categoryscreen extends StatelessWidget {
                   .outerShadowSm
                   .make()
                   .onTap(() {
+                    controller.getSubCategories(categoriesList[index]);
                     Get.to(() => CategoryDetails(title: categoriesList[index]));
                   });
             },
