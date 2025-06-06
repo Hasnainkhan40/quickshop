@@ -1,7 +1,9 @@
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:quickshop/consts/consts.dart';
 import 'package:quickshop/consts/list.dart';
 import 'package:quickshop/controller/product_controller.dart';
+import 'package:quickshop/views/chat_screen/chat_screen.dart';
 
 import 'package:quickshop/views/widgets_common/our_button.dart';
 
@@ -30,8 +32,20 @@ class ItemDetails extends StatelessWidget {
           title: title!.text.color(darkFontGrey).fontFamily(bold).make(),
 
           actions: [
-            IconButton(onPressed: () {}, icon: Icon(Icons.share)),
-            IconButton(onPressed: () {}, icon: Icon(Icons.favorite_outline)),
+            Obx(() => IconButton(onPressed: () {}, icon: Icon(Icons.share))),
+            IconButton(
+              onPressed: () {
+                if (controller.isFav.value) {
+                  controller.removeToWishlist(data.id, context);
+                } else {
+                  controller.addToWishlist(data.id, context);
+                }
+              },
+              icon: Icon(
+                Icons.favorite_outline,
+                color: controller.isFav.value ? redColor : darkFontGrey,
+              ),
+            ),
           ],
         ),
         body: Column(
@@ -109,7 +123,15 @@ class ItemDetails extends StatelessWidget {
                                   Icons.message_rounded,
                                   color: darkFontGrey,
                                 ),
-                              ),
+                              ).onTap(() {
+                                Get.to(
+                                  () => const ChatScreen(),
+                                  arguments: [
+                                    data['P_seller'],
+                                    data['vendor_id'],
+                                  ],
+                                );
+                              }),
                             ],
                           ).box
                           .height(70)

@@ -5,6 +5,7 @@ import 'package:quickshop/consts/consts.dart';
 import 'package:quickshop/consts/loding_indicator.dart';
 import 'package:quickshop/controller/cart_controller.dart';
 import 'package:quickshop/services/firestore_services.dart';
+import 'package:quickshop/views/cart_screen/shipping_screen.dart';
 import 'package:quickshop/views/widgets_common/our_button.dart';
 
 class Cartscreen extends StatelessWidget {
@@ -13,6 +14,17 @@ class Cartscreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var controller = Get.put(CartController());
     return Scaffold(
+      bottomNavigationBar: SizedBox(
+        height: 60,
+        child: ourButton(
+          color: redColor,
+          onPress: () {
+            Get.to(() => const ShippingScreen());
+          },
+          textcolor: whiteColor,
+          title: "proceed To shipping",
+        ),
+      ),
       backgroundColor: whiteColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -30,7 +42,9 @@ class Cartscreen extends StatelessWidget {
             );
           } else {
             var data = snapshot.data!.docs;
+
             controller.calculate(data);
+            controller.productSnapshot = data;
             return Padding(
               padding: EdgeInsets.all(8.0),
               child: Column(
@@ -83,7 +97,7 @@ class Cartscreen extends StatelessWidget {
                       .roundedSM
                       .make(),
                   10.heightBox,
-                  SizedBox(
+                  /* SizedBox(
                     width: context.screenWidth - 60,
                     child: ourButton(
                       color: redColor,
@@ -91,7 +105,7 @@ class Cartscreen extends StatelessWidget {
                       textcolor: whiteColor,
                       title: "proceed To shipping",
                     ),
-                  ),
+                  ),*/
                 ],
               ),
             );
