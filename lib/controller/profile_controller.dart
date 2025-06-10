@@ -59,8 +59,6 @@ class ProfileController extends GetxController {
         .then((value) {
           currentUser!.updatePassword(newpassword);
         })
-        .catchError((error) {
-          print(error.toString);
-        });
+        .catchError((error) {});
   }
 }

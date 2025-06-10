@@ -56,7 +56,7 @@ class ShippingScreen extends StatelessWidget {
               hint: "State",
               isPass: false,
               titel: "State",
-              controller: controller.phoneController,
+              controller: controller.stateController,
             ),
             costomTextField(
               hint: "Postal Code",

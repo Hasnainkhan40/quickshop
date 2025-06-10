@@ -32,18 +32,20 @@ class ItemDetails extends StatelessWidget {
           title: title!.text.color(darkFontGrey).fontFamily(bold).make(),
 
           actions: [
-            Obx(() => IconButton(onPressed: () {}, icon: Icon(Icons.share))),
-            IconButton(
-              onPressed: () {
-                if (controller.isFav.value) {
-                  controller.removeToWishlist(data.id, context);
-                } else {
-                  controller.addToWishlist(data.id, context);
-                }
-              },
-              icon: Icon(
-                Icons.favorite_outline,
-                color: controller.isFav.value ? redColor : darkFontGrey,
+            IconButton(onPressed: () {}, icon: Icon(Icons.share)),
+            Obx(
+              () => IconButton(
+                onPressed: () {
+                  if (controller.isFav.value) {
+                    controller.removeToWishlist(data.id, context);
+                  } else {
+                    controller.addToWishlist(data.id, context);
+                  }
+                },
+                icon: Icon(
+                  Icons.favorite_outline,
+                  color: controller.isFav.value ? redColor : darkFontGrey,
+                ),
               ),
             ),
           ],
@@ -344,16 +346,21 @@ class ItemDetails extends StatelessWidget {
               child: ourButton(
                 color: redColor,
                 onPress: () {
-                  controller.addCart(
-                    color: data['P_colors'][controller.colorIndex.value],
-                    context: context,
-                    img: data['P_imgs'][0],
-                    qty: controller.quantity.value,
-                    sellername: data['P_seller'],
-                    title: data['P_name'],
-                    tprice: controller.totalprice.value,
-                  );
-                  VxToast.show(context, msg: "Added to cart");
+                  if (controller.quantity.value > 0) {
+                    controller.addCart(
+                      color: data['P_colors'][controller.colorIndex.value],
+                      context: context,
+                      vendorID: data['vendor_id'],
+                      img: data['P_imgs'][0],
+                      qty: controller.quantity.value,
+                      sellername: data['P_seller'],
+                      title: data['P_name'],
+                      tprice: controller.totalprice.value,
+                    );
+                    VxToast.show(context, msg: "Added to cart");
+                  } else {
+                    VxToast.show(context, msg: "Minimum 1 product is requried");
+                  }
                 },
                 textcolor: whiteColor,
                 title: "Add to",

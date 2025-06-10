@@ -19,10 +19,12 @@ class CartController extends GetxController {
   late dynamic productSnapshot;
   var products = [];
 
+  var placingOrder = false.obs;
+
   calculate(data) {
     totalp.value = 0;
     for (var i = 0; i < data.length; i++) {
-      totalp.value = totalp.value + int.parse("${data[i]['tprice']}");
+      totalp.value = totalp.value + int.parse(data[i]['tprice'].toString());
     }
   }
 
@@ -30,7 +32,8 @@ class CartController extends GetxController {
     paymentIndex.value = index;
   }
 
-  placeMyOrder({orderPaymentMethod, totalAmount}) async {
+  placeMyOrder({required orderPaymentMethod, required totalAmount}) async {
+    placingOrder(true);
     await getProductDetail();
     await firebaseFirestore.collection(ordersCollection).doc().set({
       'order_code': "1564654341",
@@ -42,23 +45,39 @@ class CartController extends GetxController {
       'order_by_state': stateController.text,
       'order_by_city': cityController.text,
       'order_by_phone': phoneController.text,
-      "order_by_postalcode": "Home Delivery",
-      'shipping_method': orderPaymentMethod,
+      "order_by_postalcode": postalcodeController.text,
+      'shipping_method': "Home Delivery",
+      'payment_method': orderPaymentMethod,
       'order_placed': true,
+      'order_confirmed': false,
+      'order_delivered': false,
+      'order_on_delivery': false,
       'total_amount': totalAmount,
       'orders': FieldValue.arrayUnion(products),
     });
+    placingOrder(false);
   }
 
   getProductDetail() {
     products.clear();
-    for (var i = 0; i < productSnapshot.lenhth; i++) {
+    for (var i = 0; i < productSnapshot.length; i++) {
       products.add({
         'color': productSnapshot[i]['color'],
         'img': productSnapshot[i]['img'],
+        'vendor_id': productSnapshot[i]['vendor_id'],
+        'tprice': productSnapshot[i]['tprice'],
         'qty': productSnapshot[i]['qty'],
         'title': productSnapshot[i]['title'],
       });
+    }
+  }
+
+  clearCart() {
+    for (var i = 0; i < productSnapshot.length; i++) {
+      firebaseFirestore
+          .collection(cartCollection)
+          .doc(productSnapshot[i].id)
+          .delete();
     }
   }
 }

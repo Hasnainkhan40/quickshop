@@ -2,13 +2,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:quickshop/consts/consts.dart';
 import 'package:quickshop/consts/list.dart';
+import 'package:quickshop/consts/loding_indicator.dart';
 import 'package:quickshop/controller/auth_controler.dart';
 import 'package:quickshop/controller/profile_controller.dart';
 import 'package:quickshop/services/firestore_services.dart';
 import 'package:quickshop/views/auth_screen/login_screen.dart';
+import 'package:quickshop/views/chat_screen/message_screen.dart';
+import 'package:quickshop/views/order_screen/order_screen.dart';
 import 'package:quickshop/views/profile_screen/componets/details_cart.dart';
 import 'package:quickshop/views/profile_screen/edit_profile_screen.dart';
 import 'package:quickshop/views/widgets_common/bg_widget.dart';
+import 'package:quickshop/views/wishlist_screen/wishlist_screen.dart';
 
 class Profilescreen extends StatelessWidget {
   const Profilescreen({super.key});
@@ -86,27 +90,57 @@ class Profilescreen extends StatelessWidget {
                       ),
                     ),
                     20.heightBox,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        detailsCard(
-                          count: data['cart_count'],
-                          title: "in your cart",
-                          width: context.screenWidth / 3.4,
-                        ),
-                        detailsCard(
-                          count: data['wishlist_count'],
-                          title: "in your wishlist",
-                          width: context.screenWidth / 3.4,
-                        ),
-                        detailsCard(
-                          count: data['order_count'],
-                          title: "your orders",
-                          width: context.screenWidth / 3.4,
-                        ),
-                      ],
+                    FutureBuilder(
+                      future: FirestoreServices.getCounts(),
+                      builder: (BuildContext context, AsyncSnapshot snapshot) {
+                        if (!snapshot.hasData) {
+                          return Center(child: lodingIndicator());
+                        } else {
+                          var countData = snapshot.data;
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              detailsCard(
+                                count: countData[0].toString(),
+                                title: "in your cart",
+                                width: context.screenWidth / 3.4,
+                              ),
+                              detailsCard(
+                                count: countData[1].toString(),
+                                title: "in your wishlist",
+                                width: context.screenWidth / 3.4,
+                              ),
+                              detailsCard(
+                                count: countData[2].toString(),
+                                title: "your orders",
+                                width: context.screenWidth / 3.4,
+                              ),
+                            ],
+                          );
+                        }
+                      },
                     ),
 
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    //   children: [
+                    //     detailsCard(
+                    //       count: data['cart_count'],
+                    //       title: "in your cart",
+                    //       width: context.screenWidth / 3.4,
+                    //     ),
+                    //     detailsCard(
+                    //       count: data['wishlist_count'],
+                    //       title: "in your wishlist",
+                    //       width: context.screenWidth / 3.4,
+                    //     ),
+                    //     detailsCard(
+                    //       count: data['order_count'],
+                    //       title: "your orders",
+                    //       width: context.screenWidth / 3.4,
+                    //     ),
+                    //   ],
+                    // ),
                     ListView.separated(
                           shrinkWrap: true,
                           separatorBuilder: (context, index) {
@@ -115,6 +149,20 @@ class Profilescreen extends StatelessWidget {
                           itemCount: profileButtonsList.length,
                           itemBuilder: (BuildContext context, int index) {
                             return ListTile(
+                              onTap: () {
+                                switch (index) {
+                                  case 0:
+                                    Get.to(() => OrderScreen());
+                                    break;
+                                  case 1:
+                                    Get.to(() => WishlistScreen());
+                                    break;
+                                  case 2:
+                                    Get.to(() => MessageScreen());
+                                    break;
+                                  default:
+                                }
+                              },
                               leading: Image.asset(
                                 profileButtonIcons[index],
                                 width: 22,

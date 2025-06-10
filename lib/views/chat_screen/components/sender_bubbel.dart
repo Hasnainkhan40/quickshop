@@ -13,7 +13,7 @@ Widget senderBubbel(DocumentSnapshot data) {
       padding: EdgeInsets.all(12),
       margin: EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(
-        color: data['uid'] == currentUser!.uid ? Vx.blue700 : Vx.blue300,
+        color: data['uid'] == currentUser!.uid ? redColor : darkFontGrey,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20),
           topRight: Radius.circular(20),
