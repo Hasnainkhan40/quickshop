@@ -6,15 +6,18 @@ import 'package:get/utils.dart';
 import 'package:quickshop/consts/consts.dart';
 import 'package:quickshop/consts/list.dart';
 import 'package:quickshop/consts/loding_indicator.dart';
+import 'package:quickshop/controller/home_controller.dart';
 import 'package:quickshop/services/firestore_services.dart';
 import 'package:quickshop/views/category_Screen/item_details.dart';
 import 'package:quickshop/views/homescreen/components/featured_button.dart';
+import 'package:quickshop/views/homescreen/searchScreen.dart';
 import 'package:quickshop/views/widgets_common/home_buttons.dart';
 
 class Homescreen extends StatelessWidget {
   const Homescreen({super.key});
   @override
   Widget build(BuildContext context) {
+    var controller = Get.find<HomeController>();
     return Container(
       padding: const EdgeInsets.all(12),
       color: lightGrey,
@@ -28,9 +31,18 @@ class Homescreen extends StatelessWidget {
               height: 60,
               color: lightGrey,
               child: TextFormField(
+                controller: controller.searchController,
                 decoration: InputDecoration(
                   border: InputBorder.none,
-                  suffixIcon: Icon(Icons.search),
+                  suffixIcon: Icon(Icons.search).onTap(() {
+                    if (controller.searchController.text.isNotEmptyAndNotNull) {
+                      Get.to(
+                        () => Searchscreen(
+                          title: controller.searchController.text,
+                        ),
+                      );
+                    }
+                  }),
                   filled: true,
                   fillColor: whiteColor,
                   hintText: searchanything,
@@ -163,39 +175,67 @@ class Homescreen extends StatelessWidget {
                           10.heightBox,
                           SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
-                            child: Row(
-                              children: List.generate(
-                                6,
-                                (index) =>
-                                    Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Image.asset(
-                                              imgP1,
-                                              width: 130,
-                                              fit: BoxFit.cover,
-                                            ),
-                                            10.heightBox,
-                                            "Leptop 4GB/64Gb".text
-                                                .fontFamily(semibold)
-                                                .color(darkFontGrey)
-                                                .make(),
-                                            10.heightBox,
-                                            "\$600".text
-                                                .color(redColor)
-                                                .fontFamily(bold)
-                                                .size(16)
-                                                .make(),
-                                          ],
-                                        ).box.white
-                                        .margin(
-                                          EdgeInsets.symmetric(horizontal: 4),
-                                        )
-                                        .roundedSM
-                                        .padding(const EdgeInsets.all(8))
-                                        .make(),
-                              ),
+                            child: FutureBuilder(
+                              future: FirestoreServices.getFeaturedProduct(),
+                              builder: (
+                                context,
+                                AsyncSnapshot<QuerySnapshot> snapshot,
+                              ) {
+                                if (!snapshot.hasData) {
+                                  return Center(child: lodingIndicator());
+                                } else if (snapshot.data!.docs.isEmpty) {
+                                  return "No featured product..".text.white
+                                      .makeCentered();
+                                } else {
+                                  var featuredData = snapshot.data!.docs;
+                                  return Row(
+                                    children: List.generate(
+                                      featuredData.length,
+                                      (index) => Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Image.network(
+                                                featuredData[index]['P_imgs'][0],
+                                                width: 130,
+                                                height: 130,
+                                                fit: BoxFit.cover,
+                                              ),
+                                              10.heightBox,
+                                              "${featuredData[index]['P_name']}"
+                                                  .text
+                                                  .fontFamily(semibold)
+                                                  .color(darkFontGrey)
+                                                  .make(),
+                                              10.heightBox,
+                                              "${featuredData[index]['P_price']}"
+                                                  .numCurrency
+                                                  .text
+                                                  .color(redColor)
+                                                  .fontFamily(bold)
+                                                  .size(16)
+                                                  .make(),
+                                            ],
+                                          ).box.white
+                                          .margin(
+                                            EdgeInsets.symmetric(horizontal: 4),
+                                          )
+                                          .roundedSM
+                                          .padding(const EdgeInsets.all(8))
+                                          .make()
+                                          .onTap(() {
+                                            Get.to(
+                                              () => ItemDetails(
+                                                title:
+                                                    "${featuredData[index]['P_name']}",
+                                                data: featuredData[index],
+                                              ),
+                                            );
+                                          }),
+                                    ),
+                                  );
+                                }
+                              },
                             ),
                           ),
                         ],
@@ -246,7 +286,7 @@ class Homescreen extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Image.asset(
+                                      Image.network(
                                         "${allproductsdata[index]['P_imgs'][0]}",
                                         height: 200,
                                         width: 200,

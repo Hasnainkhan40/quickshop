@@ -1,4 +1,7 @@
+import 'package:get/get.dart';
 import 'package:quickshop/consts/consts.dart';
+import 'package:quickshop/views/category_Screen/categoryScreen.dart';
+import 'package:quickshop/views/category_Screen/category_details.dart';
 
 Widget featuredButton({String? title, icon}) {
   return Row(
@@ -14,5 +17,8 @@ Widget featuredButton({String? title, icon}) {
       .padding(const EdgeInsets.all(4))
       .roundedSM
       .outerShadowSm
-      .make();
+      .make()
+      .onTap(() {
+        Get.to(() => CategoryDetails(title: title));
+      });
 }
