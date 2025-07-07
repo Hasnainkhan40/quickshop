@@ -16,102 +16,123 @@ class EditProfileScreen extends StatelessWidget {
 
     return bgWidget(
       Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          leading: IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: Icon(Icons.arrow_back, color: Colors.white),
+          ),
+        ),
         body: Obx(
           () => SingleChildScrollView(
-            child:
-                Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        controller.profileImagePath.isEmpty
-                            ? Image.asset(
-                              imgB1,
-                              width: 100,
-                              fit: BoxFit.cover,
-                            ).box.roundedFull.clip(Clip.antiAlias).make()
-                            : Image.file(
-                              File(controller.profileImagePath.value),
-                              width: 100,
-                              fit: BoxFit.cover,
-                            ).box.roundedFull.clip(Clip.antiAlias).make(),
-                        10.heightBox,
-                        ourButton(
-                          color: redColor,
-                          onPress: () {
-                            controller.changeImage(context);
-                          },
-                          title: "Chenge",
-                          textcolor: whiteColor,
-                        ),
-                        const Divider(),
-                        20.heightBox,
-                        costomTextField(
-                          controller: controller.nameController,
-                          hint: nameHint,
-                          titel: name,
-                          isPass: false,
-                        ),
-                        10.heightBox,
-                        costomTextField(
-                          controller: controller.oldpassController,
-                          hint: password,
-                          titel: oldpass,
-                          isPass: true,
-                        ),
-                        10.heightBox,
-                        costomTextField(
-                          controller: controller.newpassController,
-                          hint: password,
-                          titel: newpass,
-                          isPass: true,
-                        ),
-                        20.heightBox,
-                        controller.isLoding.value
-                            ? const CircularProgressIndicator(
-                              valueColor: AlwaysStoppedAnimation(redColor),
-                            )
-                            : SizedBox(
-                              width: 60,
-                              child: ourButton(
-                                color: redColor,
-                                onPress: () async {
-                                  controller.isLoding(true);
+            child: Center(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: 500),
+                child:
+                    Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            controller.profileImageUrl.isNotEmpty
+                                ? Image.network(
+                                  controller.profileImageUrl.value,
+                                  width: 100,
+                                  height: 100,
+                                  fit: BoxFit.cover,
+                                ).box.roundedFull.clip(Clip.antiAlias).make()
+                                : Image.asset(
+                                  imgB1,
+                                  width: 100,
+                                  height: 100,
+                                  fit: BoxFit.cover,
+                                ).box.roundedFull.clip(Clip.antiAlias).make(),
 
-                                  //if old password matches data base
-                                  if (data['password'] ==
-                                      controller.oldpassController.text) {
-                                    await controller.changeAuthPassword(
-                                      email: data['email'],
-                                      password:
-                                          controller.oldpassController.text,
-                                      newpassword:
-                                          controller.newpassController.text,
-                                    );
-
-                                    await controller.uodateProfile(
-                                      imageUrl: '',
-                                      name: controller.nameController.text,
-                                      password:
-                                          controller.newpassController.text,
-                                    );
-                                    VxToast.show(context, msg: "Update");
-                                  } else {
-                                    VxToast.show(
-                                      context,
-                                      msg: "Wrong old password",
-                                    );
-                                  }
-                                },
-                                title: "Save",
-                                textcolor: whiteColor,
-                              ),
+                            10.heightBox,
+                            ourButton(
+                              color: redColor,
+                              onPress: () {
+                                controller.uodateProfilePicture(context);
+                              },
+                              title: "Change",
+                              textcolor: whiteColor,
                             ),
-                      ],
-                    ).box.white.shadowSm
-                    .padding(const EdgeInsets.all(16))
-                    .margin(const EdgeInsets.only(top: 50, left: 12, right: 12))
-                    .rounded
-                    .make(),
+                            const Divider(),
+                            20.heightBox,
+
+                            /// TextFields
+                            costomTextField(
+                              controller: controller.nameController,
+                              hint: nameHint,
+                              titel: name,
+                              isPass: false,
+                            ),
+                            10.heightBox,
+                            costomTextField(
+                              controller: controller.oldpassController,
+                              hint: password,
+                              titel: oldpass,
+                              isPass: true,
+                            ),
+                            10.heightBox,
+                            costomTextField(
+                              controller: controller.newpassController,
+                              hint: password,
+                              titel: newpass,
+                              isPass: true,
+                            ),
+                            20.heightBox,
+
+                            controller.isLoding.value
+                                ? const CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation(redColor),
+                                )
+                                : SizedBox(
+                                  width: double.infinity,
+                                  child: ourButton(
+                                    color: redColor,
+                                    onPress: () async {
+                                      controller.isLoding(true);
+
+                                      if (data['password'] ==
+                                          controller.oldpassController.text) {
+                                        await controller.changeAuthPassword(
+                                          email: data['email'],
+                                          password:
+                                              controller.oldpassController.text,
+                                          newpassword:
+                                              controller.newpassController.text,
+                                        );
+
+                                        await controller.uodateProfile(
+                                          imageUrl:
+                                              controller.profileImageUrl.value,
+                                          name: controller.nameController.text,
+                                          password:
+                                              controller.newpassController.text,
+                                        );
+                                        VxToast.show(context, msg: "Update");
+                                      } else {
+                                        VxToast.show(
+                                          context,
+                                          msg: "Wrong old password",
+                                        );
+                                      }
+                                    },
+                                    title: "Save",
+                                    textcolor: whiteColor,
+                                  ),
+                                ),
+                          ],
+                        ).box.white.shadowSm
+                        .padding(const EdgeInsets.all(16))
+                        .margin(
+                          const EdgeInsets.only(top: 50, left: 12, right: 12),
+                        )
+                        .rounded
+                        .make(),
+              ),
+            ),
           ),
         ),
       ),

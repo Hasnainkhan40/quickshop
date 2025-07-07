@@ -36,7 +36,16 @@ class _CategoryDetailsState extends State<CategoryDetails> {
   Widget build(BuildContext context) {
     return bgWidget(
       Scaffold(
-        appBar: AppBar(title: widget.title!.text.fontFamily(bold).white.make()),
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          leading: IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: Icon(Icons.arrow_back, color: Colors.white),
+          ),
+          title: widget.title!.text.fontFamily(bold).white.make(),
+        ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
