@@ -6,18 +6,20 @@ Widget senderBubbel(DocumentSnapshot data) {
   var t =
       data['created_on'] == null ? DateTime.now() : data['created_on'].toDate();
   var time = intl.DateFormat("h:mma").format(t);
+  bool isCurrentUser = data['uid'] == currentUser!.uid;
+
   return Directionality(
-    textDirection:
-        data['uid'] == currentUser!.uid ? TextDirection.rtl : TextDirection.ltr,
+    textDirection: isCurrentUser ? TextDirection.rtl : TextDirection.ltr,
     child: Container(
       padding: EdgeInsets.all(12),
       margin: EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(
-        color: data['uid'] == currentUser!.uid ? redColor : darkFontGrey,
+        color: isCurrentUser ? redColor : darkFontGrey,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20),
           topRight: Radius.circular(20),
-          bottomLeft: Radius.circular(20),
+          bottomLeft: Radius.circular(isCurrentUser ? 20 : 0),
+          bottomRight: Radius.circular(isCurrentUser ? 0 : 20),
         ),
       ),
       child: Column(

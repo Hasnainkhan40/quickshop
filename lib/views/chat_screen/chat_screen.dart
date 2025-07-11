@@ -70,7 +70,7 @@ class ChatScreen extends StatelessWidget {
                         ),
                       ),
             ),
-            10.heightBox,
+            30.heightBox,
             Row(
                   children: [
                     Expanded(

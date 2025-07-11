@@ -3,6 +3,7 @@ import 'package:quickshop/consts/consts.dart';
 import 'package:quickshop/consts/list.dart';
 import 'package:quickshop/controller/product_controller.dart';
 import 'package:quickshop/views/category_Screen/category_details.dart';
+import 'package:quickshop/views/homescreen/homeScreen.dart';
 import 'package:quickshop/views/widgets_common/bg_widget.dart';
 
 class Categoryscreen extends StatelessWidget {
@@ -14,12 +15,7 @@ class Categoryscreen extends StatelessWidget {
       Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          leading: IconButton(
-            onPressed: () {
-              Get.back();
-            },
-            icon: Icon(Icons.arrow_back, color: Colors.white),
-          ),
+
           title: categories.text.fontFamily(bold).white.make(),
         ),
         body: Container(

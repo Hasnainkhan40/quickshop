@@ -42,7 +42,7 @@ class Searchscreen extends StatelessWidget {
                   crossAxisCount: 2,
                   mainAxisSpacing: 8,
                   crossAxisSpacing: 8,
-                  mainAxisExtent: 300,
+                  mainAxisExtent: 230,
                 ),
                 children:
                     filtered
@@ -73,7 +73,8 @@ class Searchscreen extends StatelessWidget {
                               ).box.white
                               .margin(EdgeInsets.symmetric(horizontal: 4))
                               .roundedSM
-                              .padding(const EdgeInsets.all(8))
+                              .outerShadowLg
+                              .padding(const EdgeInsets.all(12))
                               .make()
                               .onTap(() {
                                 Get.to(

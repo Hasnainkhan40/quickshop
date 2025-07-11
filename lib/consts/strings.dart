@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 
 const appname = "Quickshop";
 const appversion = "Version 1.0.0";
-const credits = "@Baaba Devs";
+const credits = "hasnaink40";
 const email = "Email";
 const emailHint = "admin@admin.com";
 const password = "Password";
