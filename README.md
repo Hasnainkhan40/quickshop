@@ -24,6 +24,8 @@ Quickshop provides users with the ability to browse, search, and purchase produc
 ---
 
 ## 📸 Screenshots
+![Uploading Image 2025-07-15 at 23.20.10_f74f2d1a.jpg…]()
+![Uploading Image 2025-07-15 at 23.20.10_af3e5d33.jpg…]()
 
 
 ---
