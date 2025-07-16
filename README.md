@@ -25,7 +25,8 @@ Quickshop provides users with the ability to browse, search, and purchase produc
 
 ## 📸 Screenshots
 
-![WhatsApp Image 2025-07-15 at 23 20 10_eeda05dd](https://github.com/user-attachments/assets/e418432b-3039-4749-a5dd-2864211f698e)
+<img width="750" height="750" alt="WhatsApp Image 2025-07-15 at 23 20 10_eeda05dd (1)" src="https://github.com/user-attachments/assets/fb190ddb-5cc4-457c-b0a5-18fc828e4722" />
+
 
 ![WhatsApp Image 2025-07-15 at 23 20 10_1b53705b](https://github.com/user-attachments/assets/5a254fc8-4ea5-4d62-9b1f-01a15f321245)
 
