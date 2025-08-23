@@ -9,20 +9,42 @@ class ProductController extends GetxController {
   var quantity = 0.obs;
   var colorIndex = 0.obs;
   var totalprice = 0.obs;
+  var currentImageIndex = 0.obs;
 
   var subcat = [];
 
   var isFav = false.obs;
 
+  // getSubCategories(title) async {
+  //   subcat.clear();
+  //   var data = await rootBundle.loadString('lib/services/category_model.json');
+  //   var decosed = categoryModelFromJson(data);
+  //   var s =
+  //       decosed.categories.where((element) => element.name == title).toList();
+
+  //   for (var e in s[0].subcategory) {
+  //     subcat.add(e);
+  //   }
+  // }
+
   getSubCategories(title) async {
     subcat.clear();
-    var data = await rootBundle.loadString('lib/services/category_model.json');
-    var decosed = categoryModelFromJson(data);
-    var s =
-        decosed.categories.where((element) => element.name == title).toList();
 
-    for (var e in s[0].subcategory) {
-      subcat.add(e);
+    var data = await rootBundle.loadString('lib/services/category_model.json');
+    var decoded = categoryModelFromJson(data);
+
+    var s =
+        decoded.categories
+            .where(
+              (element) =>
+                  element.name.toLowerCase().trim() ==
+                  title.toLowerCase().trim(),
+            )
+            .toList();
+
+    if (s.isEmpty) {
+      debugPrint("❌ No category found for title: $title");
+      return; // stop here if nothing found
     }
   }
 

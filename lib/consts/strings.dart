@@ -30,14 +30,14 @@ const home = "Home",
 
 //Home screen string
 
-const searchanything = "Search anything",
+const searchanything = "Search anything...",
     todayDeal = "Today's Deal",
     flashsale = "Flash Sale",
     topSellers = "Tpo Sellers",
     brand = "Brand",
     topCategories = "Top Categories",
     featuredCategories = "Featured Categories",
-    womenDress = "Wonem Dresses",
+    womenDress = "Women Clothing",
     girlsWatches = "Girl Watches",
     mobilePhone = "Mobil Phone",
     boyGlasses = "Boy Glasses",
