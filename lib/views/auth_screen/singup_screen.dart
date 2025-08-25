@@ -44,25 +44,25 @@ class _SingupScreenState extends State<SingupScreen> {
                           children: [
                             costomTextField(
                               hint: nameHint,
-                              titel: name,
+                              title: name,
                               controller: nameController,
                               isPass: false,
                             ),
                             costomTextField(
                               hint: emailHint,
-                              titel: email,
+                              title: email,
                               controller: emailController,
                               isPass: false,
                             ),
                             costomTextField(
                               hint: passwordHint,
-                              titel: password,
+                              title: password,
                               controller: passwordController,
                               isPass: true,
                             ),
                             costomTextField(
                               hint: passwordHint,
-                              titel: retypePassword,
+                              title: retypePassword,
                               controller: passwordRetypeController,
                               isPass: true,
                             ),

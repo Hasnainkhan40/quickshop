@@ -217,7 +217,7 @@ class ItemDetails extends StatelessWidget {
                         ),
                         onPressed: () {
                           Get.to(
-                            () => const ChatScreen(),
+                            () => ChatScreen(),
                             arguments: [data['P_seller'], data['vendor_id']],
                           );
                         },

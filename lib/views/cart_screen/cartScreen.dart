@@ -16,9 +16,9 @@ class CartScreen extends StatelessWidget {
     var controller = Get.put(CartController());
 
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: lightGrey,
       appBar: AppBar(
-        backgroundColor: Colors.grey[100],
+        backgroundColor: lightGrey,
         elevation: 0,
         centerTitle: true,
         leading: IconButton(
