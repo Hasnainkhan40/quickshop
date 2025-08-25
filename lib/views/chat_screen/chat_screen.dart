@@ -14,13 +14,48 @@ class ChatScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var controller = Get.put(ChatsController());
     return Scaffold(
-      backgroundColor: lightGrey,
+      backgroundColor: const Color(0xFFF5F8F5), // ✅ light mint background
       appBar: AppBar(
-        title:
-            "${controller.friendName}".text
-                .fontFamily(semibold)
-                .color(darkFontGrey)
-                .make(),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        titleSpacing: 0,
+        leading: const SizedBox(),
+        title: Row(
+          children: [
+            const SizedBox(width: 12),
+            CircleAvatar(
+              radius: 22,
+              backgroundColor: Colors.grey.shade300,
+              child: const Icon(Icons.person, color: Colors.white),
+            ),
+            const SizedBox(width: 12),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  controller.friendName,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    color: Colors.black87,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                const Text(
+                  "Online",
+                  style: TextStyle(fontSize: 13, color: Colors.green),
+                ),
+              ],
+            ),
+          ],
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.call, color: Colors.black87),
+          ),
+          const SizedBox(width: 8),
+        ],
       ),
       body: Padding(
         padding: EdgeInsets.all(8.0),
@@ -61,7 +96,7 @@ class ChatScreen extends StatelessWidget {
                                             data['uid'] == currentUser!.uid
                                                 ? Alignment.centerRight
                                                 : Alignment.centerLeft,
-                                        child: senderBubbel(data),
+                                        child: ChatBubble(data: data),
                                       );
                                     }).toList(),
                               );

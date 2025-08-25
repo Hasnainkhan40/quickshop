@@ -47,7 +47,7 @@ class Profilescreen extends StatelessWidget {
                   //edit profile button
                   Container(
                     width: double.infinity,
-                    height: 350,
+                    height: 300,
                     decoration: const BoxDecoration(
                       color: orangeColor, // dark green shade
                       borderRadius: BorderRadius.only(
@@ -57,41 +57,8 @@ class Profilescreen extends StatelessWidget {
                     ),
                     child: Column(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              OutlinedButton(
-                                style: OutlinedButton.styleFrom(
-                                  side: const BorderSide(color: whiteColor),
-                                ),
-                                onPressed: () async {
-                                  await Get.put(
-                                    AuthControler(),
-                                  ).signoutMethod(context);
-                                  Get.offAll(() => const LoginScreen());
-                                },
-                                child:
-                                    logout.text
-                                        .fontFamily(semibold)
-                                        .white
-                                        .make(),
-                              ),
-                              SizedBox(width: 5),
-                              Align(
-                                alignment: Alignment.topRight,
-                                child: Icon(Icons.edit, color: whiteColor),
-                              ).onTap(() {
-                                controller.nameController.text = data['name'];
-
-                                Get.to(() => EditProfileScreen(data: data));
-                              }),
-                            ],
-                          ),
-                        ),
-
                         //User details sections
+                        SizedBox(height: 60),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 8.0),
                           child: Row(
@@ -119,32 +86,17 @@ class Profilescreen extends StatelessWidget {
                                     "${data['name']}".text
                                         .fontFamily(semibold)
                                         .white
+                                        .size(25)
                                         .make(),
                                     "${data['email']}".text.white.make(),
                                   ],
                                 ),
                               ),
-                              // OutlinedButton(
-                              //   style: OutlinedButton.styleFrom(
-                              //     side: const BorderSide(color: whiteColor),
-                              //   ),
-                              //   onPressed: () async {
-                              //     await Get.put(
-                              //       AuthControler(),
-                              //     ).signoutMethod(context);
-                              //     Get.offAll(() => const LoginScreen());
-                              //   },
-                              //   child:
-                              //       logout.text
-                              //           .fontFamily(semibold)
-                              //           .white
-                              //           .make(),
-                              // ),
                             ],
                           ),
                         ),
 
-                        50.heightBox,
+                        30.heightBox,
                         FutureBuilder(
                           future: FirestoreServices.getCounts(),
                           builder: (
@@ -212,69 +164,106 @@ class Profilescreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            "Account Overview",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black87,
-                            ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text(
+                                "Account Overview",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black87,
+                                ),
+                              ),
+                              //SizedBox(width: 5),
+                              Align(
+                                alignment: Alignment.topRight,
+                                child: Icon(
+                                  Icons.edit_note,
+                                  color: Colors.black,
+                                  size: 30,
+                                ),
+                              ).onTap(() {
+                                controller.nameController.text = data['name'];
+
+                                Get.to(() => EditProfileScreen(data: data));
+                              }),
+                            ],
                           ),
                           const SizedBox(height: 16),
 
                           // Menu items list
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(20),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.05),
-                                  blurRadius: 8,
-                                  offset: const Offset(0, 3),
+                          Column(
+                            children: [
+                              ListView.separated(
+                                    shrinkWrap: true,
+                                    separatorBuilder: (context, index) {
+                                      return const Divider(color: lightGrey);
+                                    },
+                                    itemCount: profileButtonsList.length,
+                                    itemBuilder: (
+                                      BuildContext context,
+                                      int index,
+                                    ) {
+                                      return ListTile(
+                                        onTap: () {
+                                          switch (index) {
+                                            case 0:
+                                              Get.to(() => OrderScreen());
+                                              break;
+                                            case 1:
+                                              Get.to(() => WishlistScreen());
+                                              break;
+                                            case 2:
+                                              Get.to(() => MessageScreen());
+                                              break;
+                                            default:
+                                          }
+                                        },
+                                        leading: Image.asset(
+                                          profileButtonIcons[index],
+                                          width: 22,
+                                        ),
+                                        title:
+                                            profileButtonsList[index].text
+                                                .fontFamily(semibold)
+                                                .color(darkFontGrey)
+                                                .make(),
+                                      );
+                                    },
+                                  ).box.white.rounded
+                                  .size(600, 260)
+                                  .shadowSm
+                                  .make()
+                                  .box
+                                  .make(),
+                            ],
+                          ),
+
+                          SizedBox(height: 15),
+                          Center(
+                            child: OutlinedButton(
+                              style: OutlinedButton.styleFrom(
+                                // maximumSize: Size(350.0, 50.0),
+                                // minimumSize: Size(350.0, 50.0),
+                                backgroundColor: Colors.orange,
+                                side: const BorderSide(
+                                  color: orangeColor,
+                                  width: 2.0,
                                 ),
-                              ],
-                            ),
-                            child: Column(
-                              children: [
-                                ListView.separated(
-                                  shrinkWrap: true,
-                                  separatorBuilder: (context, index) {
-                                    return const Divider(color: lightGrey);
-                                  },
-                                  itemCount: profileButtonsList.length,
-                                  itemBuilder: (
-                                    BuildContext context,
-                                    int index,
-                                  ) {
-                                    return ListTile(
-                                      onTap: () {
-                                        switch (index) {
-                                          case 0:
-                                            Get.to(() => OrderScreen());
-                                            break;
-                                          case 1:
-                                            Get.to(() => WishlistScreen());
-                                            break;
-                                          case 2:
-                                            Get.to(() => MessageScreen());
-                                            break;
-                                          default:
-                                        }
-                                      },
-                                      leading: Image.asset(
-                                        profileButtonIcons[index],
-                                        width: 22,
-                                      ),
-                                      title:
-                                          profileButtonsList[index].text
-                                              .fontFamily(semibold)
-                                              .color(darkFontGrey)
-                                              .make(),
-                                    );
-                                  },
-                                ),
-                              ],
+                              ),
+                              onPressed: () async {
+                                await Get.put(
+                                  AuthControler(),
+                                ).signoutMethod(context);
+                                Get.offAll(() => const LoginScreen());
+                              },
+                              child:
+                                  logout.text
+                                      .fontFamily(bold)
+                                      .color(whiteColor)
+                                      .size(15)
+                                      .make(),
                             ),
                           ),
                         ],

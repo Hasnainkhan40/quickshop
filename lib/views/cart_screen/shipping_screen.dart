@@ -14,6 +14,13 @@ class ShippingScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: whiteColor,
       appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.white,
+        centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
+          onPressed: () => Navigator.pop(context),
+        ),
         title:
             "Shipping info".text
                 .fontFamily(semibold)
@@ -30,7 +37,7 @@ class ShippingScreen extends StatelessWidget {
               VxToast.show(context, msg: "Please fill the from");
             }
           },
-          color: redColor,
+          color: orangeColor,
           textcolor: whiteColor,
           title: "Countinue",
         ),
@@ -42,32 +49,32 @@ class ShippingScreen extends StatelessWidget {
             costomTextField(
               hint: "Address",
               isPass: false,
-              titel: "Address",
+              title: "Address",
               controller: controller.addressController,
             ),
             costomTextField(
               hint: "City",
               isPass: false,
-              titel: "City",
+              title: "City",
               controller: controller.cityController,
             ),
 
             costomTextField(
               hint: "State",
               isPass: false,
-              titel: "State",
+              title: "State",
               controller: controller.stateController,
             ),
             costomTextField(
               hint: "Postal Code",
               isPass: false,
-              titel: "Postal Code",
+              title: "Postal Code",
               controller: controller.postalcodeController,
             ),
             costomTextField(
               hint: "Phone",
               isPass: false,
-              titel: "Phone",
+              title: "Phone",
               controller: controller.phoneController,
             ),
           ],

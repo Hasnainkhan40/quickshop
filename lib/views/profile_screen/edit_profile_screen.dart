@@ -17,40 +17,74 @@ class EditProfileScreen extends StatelessWidget {
     return bgWidget(
       Scaffold(
         appBar: AppBar(
+          elevation: 0,
+          centerTitle: true,
           automaticallyImplyLeading: false,
           leading: IconButton(
-            onPressed: () {
-              Get.back();
-            },
-            icon: Icon(Icons.arrow_back, color: Colors.white),
+            icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
+            onPressed: () => Navigator.pop(context),
+          ),
+
+          // icon: Icon(Icons.arrow_back, color: Colors.white),
+          title: const Text(
+            "Edit Profile",
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
           ),
         ),
         body: Obx(
           () => SingleChildScrollView(
             child: Center(
-              child: ConstrainedBox(
-                constraints: BoxConstraints(maxWidth: 500),
+              child: Container(
+                width: double.infinity,
+                height: 900,
                 child:
                     Column(
-                          mainAxisSize: MainAxisSize.min,
                           children: [
-                            controller.profileImageUrl.isNotEmpty
-                                ? Image.network(
-                                  controller.profileImageUrl.value,
-                                  width: 100,
-                                  height: 100,
-                                  fit: BoxFit.cover,
-                                ).box.roundedFull.clip(Clip.antiAlias).make()
-                                : Image.asset(
-                                  imgB1,
-                                  width: 100,
-                                  height: 100,
-                                  fit: BoxFit.cover,
-                                ).box.roundedFull.clip(Clip.antiAlias).make(),
+                            Center(
+                              child: Stack(
+                                alignment: Alignment.bottomRight,
+                                children: [
+                                  Obx(
+                                    () => CircleAvatar(
+                                      radius: 50,
+                                      backgroundColor: Colors.black,
+                                      foregroundColor: Colors.black,
+                                      backgroundImage:
+                                          controller.profileImageUrl.isNotEmpty
+                                              ? NetworkImage(
+                                                controller
+                                                    .profileImageUrl
+                                                    .value,
+                                              )
+                                              : AssetImage(imgB1)
+                                                  as ImageProvider,
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      // open image picker
+                                    },
+                                    child: CircleAvatar(
+                                      radius: 16,
+                                      backgroundColor: Colors.grey.shade200,
+                                      child: const Icon(
+                                        Icons.camera_alt,
+                                        color: Colors.black,
+                                        size: 18,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
 
                             10.heightBox,
                             ourButton(
-                              color: redColor,
+                              color: orangeColor,
                               onPress: () {
                                 controller.uodateProfilePicture(context);
                               },
@@ -64,33 +98,35 @@ class EditProfileScreen extends StatelessWidget {
                             costomTextField(
                               controller: controller.nameController,
                               hint: nameHint,
-                              titel: name,
+                              title: name,
                               isPass: false,
                             ),
                             10.heightBox,
                             costomTextField(
                               controller: controller.oldpassController,
                               hint: password,
-                              titel: oldpass,
+                              title: oldpass,
                               isPass: true,
                             ),
                             10.heightBox,
                             costomTextField(
                               controller: controller.newpassController,
                               hint: password,
-                              titel: newpass,
+                              title: newpass,
                               isPass: true,
                             ),
                             20.heightBox,
 
                             controller.isLoding.value
                                 ? const CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation(redColor),
+                                  valueColor: AlwaysStoppedAnimation(
+                                    Colors.black,
+                                  ),
                                 )
                                 : SizedBox(
                                   width: double.infinity,
                                   child: ourButton(
-                                    color: redColor,
+                                    color: orangeColor,
                                     onPress: () async {
                                       controller.isLoding(true);
 
@@ -126,9 +162,7 @@ class EditProfileScreen extends StatelessWidget {
                           ],
                         ).box.white.shadowSm
                         .padding(const EdgeInsets.all(16))
-                        .margin(
-                          const EdgeInsets.only(top: 50, left: 12, right: 12),
-                        )
+                        .margin(const EdgeInsets.only(top: 50))
                         .rounded
                         .make(),
               ),

@@ -7,6 +7,7 @@ class ChatsController extends GetxController {
   @override
   void onInit() {
     getChatId();
+
     super.onInit();
   }
 
@@ -19,6 +20,7 @@ class ChatsController extends GetxController {
   var currentId = currentUser!.uid;
 
   var msgController = TextEditingController();
+  var messageText = "".obs;
 
   dynamic chatDocId;
 
