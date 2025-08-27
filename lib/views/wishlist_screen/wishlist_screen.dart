@@ -11,7 +11,7 @@ class WishlistScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: whiteColor,
+      backgroundColor: lightGrey,
       appBar: AppBar(
         elevation: 0,
         centerTitle: true,
@@ -21,9 +21,16 @@ class WishlistScreen extends StatelessWidget {
           onPressed: () => Navigator.pop(context),
         ),
 
-        title:
-            "My Wishlist".text.color(darkFontGrey).fontFamily(semibold).make(),
+        title: const Text(
+          "My Wishlist",
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+          ),
+        ),
       ),
+
       body: StreamBuilder(
         stream: FirestoreServices.getAllWishlist(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {

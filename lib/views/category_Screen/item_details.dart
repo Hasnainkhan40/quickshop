@@ -24,14 +24,13 @@ class ItemDetails extends StatelessWidget {
         backgroundColor: Colors.white,
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: Colors.white,
+          centerTitle: true,
+          automaticallyImplyLeading: false,
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.black),
-            onPressed: () {
-              controller.resetValue();
-              Get.back();
-            },
+            icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
+            onPressed: () => Navigator.pop(context),
           ),
+
           title: Text(
             title ?? "",
             style: const TextStyle(

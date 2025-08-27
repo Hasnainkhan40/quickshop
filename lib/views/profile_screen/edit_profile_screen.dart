@@ -18,6 +18,7 @@ class EditProfileScreen extends StatelessWidget {
       Scaffold(
         appBar: AppBar(
           elevation: 0,
+          backgroundColor: lightGrey,
           centerTitle: true,
           automaticallyImplyLeading: false,
           leading: IconButton(

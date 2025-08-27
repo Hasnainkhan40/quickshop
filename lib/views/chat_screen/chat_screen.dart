@@ -19,14 +19,18 @@ class ChatScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 0,
         titleSpacing: 0,
-        leading: const SizedBox(),
+        automaticallyImplyLeading: false,
         title: Row(
           children: [
-            const SizedBox(width: 12),
-            CircleAvatar(
-              radius: 22,
-              backgroundColor: Colors.grey.shade300,
-              child: const Icon(Icons.person, color: Colors.white),
+            // const SizedBox(width: 8),
+            Padding(
+              padding: const EdgeInsets.only(left: 15),
+              child: CircleAvatar(
+                radius: 22,
+                backgroundImage: AssetImage(
+                  "assets/images/s9.jpg",
+                ), // ✅ replace with friend image
+              ),
             ),
             const SizedBox(width: 12),
             Column(
@@ -84,21 +88,49 @@ class ChatScreen extends StatelessWidget {
                                         .make(),
                               );
                             } else {
-                              return ListView(
-                                children:
-                                    snapshot.data!.docs.mapIndexed((
-                                      currentValue,
-                                      index,
-                                    ) {
-                                      var data = snapshot.data!.docs[index];
-                                      return Align(
-                                        alignment:
-                                            data['uid'] == currentUser!.uid
-                                                ? Alignment.centerRight
-                                                : Alignment.centerLeft,
-                                        child: ChatBubble(data: data),
-                                      );
-                                    }).toList(),
+                              // Auto-scroll only if user is already near bottom
+                              WidgetsBinding.instance.addPostFrameCallback((_) {
+                                if (controller.isNearBottom.value) {
+                                  controller.scrollToBottom();
+                                }
+                              });
+
+                              return Obx(
+                                () => Stack(
+                                  children: [
+                                    ListView.builder(
+                                      controller: controller.scrollController,
+                                      itemCount: snapshot.data!.docs.length,
+                                      itemBuilder: (context, index) {
+                                        var data = snapshot.data!.docs[index];
+                                        return Align(
+                                          alignment:
+                                              data['uid'] == currentUser!.uid
+                                                  ? Alignment.centerRight
+                                                  : Alignment.centerLeft,
+                                          child: ChatBubble(data: data),
+                                        );
+                                      },
+                                    ),
+
+                                    // 👇 Show "New message" button if not at bottom
+                                    if (!controller.isNearBottom.value)
+                                      Positioned(
+                                        bottom: 10,
+                                        right: 10,
+                                        child: FloatingActionButton(
+                                          mini: true,
+                                          backgroundColor: Colors.green,
+                                          child: const Icon(
+                                            Icons.arrow_downward,
+                                            color: Colors.white,
+                                          ),
+                                          onPressed:
+                                              () => controller.scrollToBottom(),
+                                        ),
+                                      ),
+                                  ],
+                                ),
                               );
                             }
                           },
@@ -106,35 +138,93 @@ class ChatScreen extends StatelessWidget {
                       ),
             ),
             30.heightBox,
+            // ✅ Message Input Field
             Row(
-                  children: [
-                    Expanded(
-                      child: TextFormField(
-                        controller: controller.msgController,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(color: textfieldGrey),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: textfieldGrey),
-                          ),
-                          hintText: "Type a message...",
-                        ),
+              children: [
+                // ✅ Input Box
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade100,
+                      borderRadius: BorderRadius.circular(25),
+                      border: Border.all(color: Colors.grey.shade300),
+                    ),
+                    child: TextFormField(
+                      controller: controller.msgController,
+                      minLines: 1,
+                      maxLines: 4, // ✅ expands for long messages
+                      decoration: const InputDecoration(
+                        hintText: "Message...",
+                        border: InputBorder.none,
                       ),
                     ),
-                    IconButton(
+                  ),
+                ),
+                const SizedBox(width: 10),
+
+                // ✅ Mic / Send Button
+                GestureDetector(
+                  onTap: () {
+                    if (controller.msgController.text.trim().isNotEmpty) {
+                      controller.sendMsg(controller.msgController.text.trim());
+                      controller.msgController.clear();
+                    }
+                  },
+                  child: CircleAvatar(
+                    radius: 26,
+                    backgroundColor: Colors.black,
+                    child: IconButton(
+                      icon: Icon(
+                        controller.msgController.text.trim().isEmpty
+                            ? Icons
+                                .send // 📩 show send when typing
+                            : Icons.mic, // 🎤 show mic when empty
+                        color: Colors.white,
+                      ),
                       onPressed: () {
-                        controller.sendMsg(controller.msgController.text);
-                        controller.msgController.clear();
+                        if (controller.msgController.text.trim().isNotEmpty) {
+                          controller.sendMsg(
+                            controller.msgController.text.trim(),
+                          );
+                          controller.msgController.clear();
+                        }
                       },
-                      icon: Icon(Icons.send, color: Vx.red600, size: 35),
                     ),
-                  ],
-                ).box
-                .height(80)
-                .padding(EdgeInsets.all(12))
-                .margin(EdgeInsets.only(bottom: 8))
-                .make(),
+                  ),
+                ),
+              ],
+            ),
+
+            // Row(
+            //       children: [
+            //         Expanded(
+            //           child: TextFormField(
+            //             controller: controller.msgController,
+            //             decoration: const InputDecoration(
+            //               border: OutlineInputBorder(
+            //                 borderSide: BorderSide(color: textfieldGrey),
+            //               ),
+            //               focusedBorder: OutlineInputBorder(
+            //                 borderSide: BorderSide(color: textfieldGrey),
+            //               ),
+            //               hintText: "Type a message...",
+            //             ),
+            //           ),
+            //         ),
+            //         IconButton(
+            //           onPressed: () {
+            //             controller.sendMsg(controller.msgController.text);
+            //             controller.msgController.clear();
+            //           },
+            //           icon: Icon(Icons.send, color: Vx.red600, size: 35),
+            //         ),
+            //       ],
+            //     ).box
+            //     .height(80)
+            //     .padding(EdgeInsets.all(12))
+            //     .margin(EdgeInsets.only(bottom: 8))
+            //     .make(),
           ],
         ),
       ),

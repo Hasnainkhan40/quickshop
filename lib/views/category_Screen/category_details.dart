@@ -37,14 +37,15 @@ class _CategoryDetailsState extends State<CategoryDetails> {
     return bgWidget(
       Scaffold(
         appBar: AppBar(
+          elevation: 0,
+          centerTitle: true,
           automaticallyImplyLeading: false,
           leading: IconButton(
-            onPressed: () {
-              Get.back();
-            },
-            icon: Icon(Icons.arrow_back, color: Colors.white),
+            icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
+            onPressed: () => Navigator.pop(context),
           ),
-          title: widget.title!.text.fontFamily(bold).white.make(),
+
+          title: widget.title!.text.fontFamily(bold).size(20).black.make(),
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

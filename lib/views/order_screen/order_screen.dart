@@ -13,10 +13,26 @@ class OrderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: whiteColor,
+      backgroundColor: lightGrey,
       appBar: AppBar(
-        title: "My Orders".text.color(darkFontGrey).fontFamily(semibold).make(),
+        elevation: 0,
+        centerTitle: true,
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
+          onPressed: () => Navigator.pop(context),
+        ),
+
+        title: const Text(
+          "My Orders",
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+          ),
+        ),
       ),
+
       body: StreamBuilder(
         stream: FirestoreServices.getAllOrders(),
         builder: (
@@ -63,7 +79,7 @@ class OrderScreen extends StatelessWidget {
                       color: darkFontGrey,
                     ),
                   ),
-                );
+                ).box.color(Colors.grey.shade100).roundedLg.make();
               },
             );
           }

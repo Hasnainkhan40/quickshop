@@ -21,10 +21,7 @@ class CartScreen extends StatelessWidget {
         backgroundColor: lightGrey,
         elevation: 0,
         centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black87),
-          onPressed: () => Get.back(),
-        ),
+        automaticallyImplyLeading: false,
         title: const Text(
           "My Cart",
           style: TextStyle(
