@@ -4,7 +4,9 @@ import 'package:get/get.dart';
 import 'package:quickshop/consts/consts.dart';
 import 'package:quickshop/consts/list.dart';
 import 'package:quickshop/controller/home_controller.dart';
+import 'package:quickshop/controller/product_controller.dart';
 import 'package:quickshop/services/firestore_services.dart';
+import 'package:quickshop/views/cart_screen/cartScreen.dart';
 import 'package:quickshop/views/category_Screen/item_details.dart';
 import 'package:quickshop/views/homescreen/searchScreen.dart';
 import 'package:quickshop/consts/loding_indicator.dart';
@@ -89,7 +91,13 @@ class Homescreen extends StatelessWidget {
                   const SizedBox(width: 12),
                   _circleIcon(Icons.notifications_none),
                   const SizedBox(width: 8),
-                  _circleIcon(Icons.shopping_cart_outlined),
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(() => CartScreen());
+                    },
+                    child: _circleIcon(Icons.shopping_cart_outlined),
+                  ),
+                  const SizedBox(width: 8),
                 ],
               ),
             ),
@@ -220,6 +228,8 @@ class Homescreen extends StatelessWidget {
                                 ),
                             itemBuilder: (context, index) {
                               return _productCard(
+                                context: context,
+                                data: allproductsdata[index],
                                 name: allproductsdata[index]['P_name'],
                                 price:
                                     allproductsdata[index]['P_price']
@@ -292,7 +302,10 @@ class Homescreen extends StatelessWidget {
     required String price,
     required String image,
     required VoidCallback onTap,
+    required dynamic data,
+    required context,
   }) {
+    var controller = Get.put(ProductController());
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -331,22 +344,33 @@ class Homescreen extends StatelessWidget {
                 Positioned(
                   top: 10,
                   right: 10,
-                  child: Container(
-                    padding: const EdgeInsets.all(6),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          blurRadius: 6,
-                        ),
-                      ],
-                    ),
-                    child: const Icon(
-                      Icons.favorite_border,
-                      size: 18,
-                      color: Colors.orange,
+                  child: GestureDetector(
+                    onTap: () {
+                      if (controller.isFav.value) {
+                        controller.removeToWishlist(data.id, context);
+                      } else {
+                        controller.addToWishlist(data.id, context);
+                      }
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(6),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            blurRadius: 6,
+                          ),
+                        ],
+                      ),
+                      child: Icon(
+                        controller.isFav.value
+                            ? Icons.favorite_border_outlined
+                            : Icons.favorite_border_outlined,
+                        color:
+                            controller.isFav.value ? Colors.orange : Colors.red,
+                      ),
                     ),
                   ),
                 ),

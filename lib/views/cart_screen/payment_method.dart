@@ -33,17 +33,29 @@ class PaymentScreene extends StatelessWidget {
                       VxToast.show(context, msg: "Order placed successfuly");
                       Get.offAll(Homes());
                     },
-                    color: redColor,
+                    color: orangeColor,
                     textcolor: whiteColor,
                     title: "Place my order",
                   ),
         ),
+
         appBar: AppBar(
-          title:
-              "Choose Payment Method".text
-                  .fontFamily(semibold)
-                  .color(darkFontGrey)
-                  .make(),
+          elevation: 0,
+          centerTitle: true,
+          automaticallyImplyLeading: false,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
+            onPressed: () => Navigator.pop(context),
+          ),
+
+          title: const Text(
+            "Choose Payment Method",
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
+          ),
         ),
         body: Padding(
           padding: EdgeInsets.all(12.0),

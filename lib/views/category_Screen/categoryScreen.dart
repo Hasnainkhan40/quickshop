@@ -13,9 +13,18 @@ class Categoryscreen extends StatelessWidget {
     return bgWidget(
       Scaffold(
         appBar: AppBar(
+          elevation: 0,
+          centerTitle: true,
           automaticallyImplyLeading: false,
 
-          title: categories.text.fontFamily(bold).white.make(),
+          title: const Text(
+            "Categories",
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
+          ),
         ),
         body: Container(
           padding: const EdgeInsets.all(12),
