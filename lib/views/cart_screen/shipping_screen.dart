@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:quickshop/consts/consts.dart';
 import 'package:quickshop/controller/cart_controller.dart';
+import 'package:quickshop/payment/payment_service.dart';
 import 'package:quickshop/views/cart_screen/payment_method.dart';
 import 'package:quickshop/views/widgets_common/costom_textFiled.dart';
 import 'package:quickshop/views/widgets_common/our_button.dart';
@@ -30,12 +31,32 @@ class ShippingScreen extends StatelessWidget {
       bottomNavigationBar: SizedBox(
         height: 60,
         child: ourButton(
-          onPress: () {
+          onPress: () async {
             if (controller.addressController.text.length > 10) {
-              Get.to(() => PaymentScreene());
+              try {
+                await PaymentService().makePayment(
+                  int.parse(
+                    double.parse(
+                      controller.totalp.value.toStringAsFixed(2),
+                    ).toStringAsFixed(0),
+                  ),
+                  "USD",
+                );
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text("Payment Successful")),
+                );
+              } catch (e) {
+                print(e);
+              }
             } else {
               VxToast.show(context, msg: "Please fill the from");
             }
+
+            // if (controller.addressController.text.length > 10) {
+            //   Get.to(() => PaymentScreene());
+            // } else {
+            //   VxToast.show(context, msg: "Please fill the from");
+            // }
           },
           color: orangeColor,
           textcolor: whiteColor,

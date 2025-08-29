@@ -1,11 +1,22 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:quickshop/consts/consts.dart';
 import 'package:quickshop/views/splash_screen/splash_screen.dart';
 import 'package:get/get.dart';
 
+String Publishable_key =
+    "[REMOVED]";
+
+String Secret_key =
+    "[REMOVED]";
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp();
+  Stripe.publishableKey = Publishable_key;
+  Stripe.instance.applySettings();
+
   runApp(const MyApp());
 }
 

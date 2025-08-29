@@ -1,0 +1,100 @@
+import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:http/http.dart' as http;
+import 'package:quickshop/main.dart';
+
+class PaymentService {
+  Future<String?> createPaymentIntent(int amount, String currency) async {
+    try {
+      final response = await http.post(
+        Uri.parse('https://api.stripe.com/v1/payment_intents'),
+        headers: {
+          'Authorization': 'Bearer $Secret_key',
+          'Content-Type': 'application/x-www-form-urlencoded', // ✅ fixed here
+        },
+        body: {'amount': amount.toString(), 'currency': currency},
+      );
+
+      if (response.statusCode == 200) {
+        return jsonDecode(response.body)['client_secret'];
+      } else {
+        debugPrint("Stripe Error: ${response.body}");
+        return null;
+      }
+    } catch (e) {
+      debugPrint("Error creating PaymentIntent: $e");
+    }
+    return null;
+  }
+
+  Future<void> makePayment(int amount, String currency) async {
+    // ✅ typo fixed
+    try {
+      final clientSecret = await createPaymentIntent(amount, currency);
+
+      if (clientSecret == null) {
+        throw Exception("Failed to create PaymentIntent");
+      }
+
+      await Stripe.instance.initPaymentSheet(
+        paymentSheetParameters: SetupPaymentSheetParameters(
+          paymentIntentClientSecret: clientSecret,
+          merchantDisplayName: "Quickshop",
+          style: ThemeMode.system,
+        ),
+      );
+
+      await Stripe.instance.presentPaymentSheet();
+    } catch (e) {
+      debugPrint("Payment Error: $e");
+    }
+  }
+}
+
+// import 'dart:convert';
+
+// import 'package:flutter/material.dart';
+// import 'package:flutter_stripe/flutter_stripe.dart';
+// import 'package:http/http.dart' as http;
+// import 'package:quickshop/main.dart';
+
+// class PaymentService {
+//   Future<String?> createPaymentIntent(int amount, String currency) async {
+//     try {
+//       final response = await http.post(
+//         Uri.parse('https://api.stripe.com/v1/payment_intents'),
+//         headers: {
+//           'Authorization': 'Bearer $Secret_key',
+//           'Content-Type': 'application/x-www-from-urlencoded',
+//         },
+//         body: {'amount': amount.toString(), 'currency': currency},
+//       );
+
+//       if (response.statusCode == 200) {
+//         return jsonDecode(response.body)['client_secret'];
+//       } else {
+//         return null;
+//       }
+//     } catch (e) {
+//       print(e);
+//     }
+//     return null;
+//   }
+
+//   Future<void> mackPayment(int amount, String currency) async {
+//     try {
+//       final clientsSecret = await createPaymentIntent(amount, currency);
+//       await Stripe.instance.initPaymentSheet(
+//         paymentSheetParameters: SetupPaymentSheetParameters(
+//           paymentIntentClientSecret: clientsSecret,
+//           merchantDisplayName: "Quickshop",
+//           style: ThemeMode.system,
+//         ),
+//       );
+//       await Stripe.instance.presentPaymentSheet();
+//     } catch (e) {
+//       print(e);
+//     }
+//   }
+// }
