@@ -1,9 +1,10 @@
 import 'package:get/get.dart';
 import 'package:quickshop/consts/consts.dart';
+import 'package:quickshop/consts/list.dart';
 import 'package:quickshop/controller/cart_controller.dart';
 import 'package:quickshop/payment/payment_service.dart';
-import 'package:quickshop/views/cart_screen/payment_method.dart';
 import 'package:quickshop/views/widgets_common/costom_textFiled.dart';
+import 'package:quickshop/views/widgets_common/massage.dart';
 import 'package:quickshop/views/widgets_common/our_button.dart';
 
 class ShippingScreen extends StatelessWidget {
@@ -32,37 +33,66 @@ class ShippingScreen extends StatelessWidget {
         height: 60,
         child: ourButton(
           onPress: () async {
-            if (controller.addressController.text.length > 10) {
-              try {
-                await PaymentService().makePayment(
-                  int.parse(
-                    double.parse(
-                      controller.totalp.value.toStringAsFixed(2),
-                    ).toStringAsFixed(0),
-                  ),
-                  "USD",
-                );
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text("Payment Successful")),
-                );
-              } catch (e) {
-                print(e);
-              }
-            } else {
-              VxToast.show(context, msg: "Please fill the from");
+            final address = controller.addressController.text.trim();
+            final totalAmount = controller.totalp.value;
+
+            if (address.length <= 10) {
+              //VxToast.show(context, msg: "Please fill the form");
+              showModernToast(context, "Please fill the form");
+              return;
             }
 
-            // if (controller.addressController.text.length > 10) {
-            //   Get.to(() => PaymentScreene());
-            // } else {
-            //   VxToast.show(context, msg: "Please fill the from");
-            // }
+            try {
+              // convert total amount
+              final amount = totalAmount.toStringAsFixed(0);
+
+              // make stripe payment and get result
+              final paymentResult = await PaymentService().makePayment(
+                int.parse(amount),
+                "USD",
+              );
+
+              if (paymentResult == null || paymentResult == "incomplete") {
+                VxToast.show(
+                  // ignore: use_build_context_synchronously
+                  context,
+                  msg: "⚠️ You have not filled Stripe payment method",
+                );
+                return; // stop here, don't place order
+              }
+
+              if (paymentResult == "canceled") {
+                // ignore: use_build_context_synchronously
+                //VxToast.show(context, msg: "❌ Payment was canceled");
+                showModernToast(context, "❌ Payment was canceled");
+                return;
+              }
+
+              //only if payment success → place order
+              await controller.placeMyOrder(
+                orderPaymentMethod:
+                    paymentMethods[controller.paymentIndex.value],
+                totalAmount: totalAmount,
+              );
+
+              // clear cart
+              await controller.clearCart();
+
+              // ignore: use_build_context_synchronously
+              //VxToast.show(context, msg: "Order placed successfully ✅");
+              showModernToast(context, "Order placed successfully ✅");
+            } catch (e) {
+              // ignore: use_build_context_synchronously
+              // VxToast.show(context, msg: "Payment failed: $e");
+              showModernToast(context, "Payment failed: $e");
+            }
           },
           color: orangeColor,
           textcolor: whiteColor,
-          title: "Countinue",
+          title: "Place my order",
         ),
       ),
+
       body: Padding(
         padding: EdgeInsets.all(12.0),
         child: Column(

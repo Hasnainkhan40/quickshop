@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:quickshop/consts/consts.dart';
 import 'package:quickshop/consts/firebase_const.dart';
 import 'package:quickshop/models/category_model.dart';
+import 'package:quickshop/views/widgets_common/massage.dart';
 
 class ProductController extends GetxController {
   var quantity = 0.obs;
@@ -92,7 +93,8 @@ class ProductController extends GetxController {
           'added_by': currentUser!.uid,
         })
         .catchError((error) {
-          VxToast.show(context, msg: error.toString());
+          //VxToast.show(context, msg: error.toString());
+          showModernToast(context, error.toString());
         });
   }
 
@@ -107,7 +109,8 @@ class ProductController extends GetxController {
       'P_wishlist': FieldValue.arrayUnion([currentUser!.uid]),
     }, SetOptions(merge: true));
     isFav(true);
-    VxToast.show(context, msg: "Added to wishlist");
+
+    showModernToast(context, "Added to wishlist");
   }
 
   removeToWishlist(docId, context) async {
@@ -115,7 +118,8 @@ class ProductController extends GetxController {
       'P_wishlist': FieldValue.arrayRemove([currentUser!.uid]),
     }, SetOptions(merge: true));
     isFav(false);
-    VxToast.show(context, msg: "Remove from wishlist");
+
+    showModernToast(context, "Remove from wishlist");
   }
 
   checkIffav(data) async {

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:quickshop/consts/consts.dart';
 import 'package:quickshop/consts/loding_indicator.dart';
 import 'package:quickshop/controller/cart_controller.dart';
+import 'package:quickshop/controller/product_controller.dart';
 import 'package:quickshop/services/firestore_services.dart';
 import 'package:quickshop/views/cart_screen/shipping_screen.dart';
 import 'package:quickshop/views/widgets_common/our_button.dart';
@@ -14,6 +15,7 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var controller = Get.put(CartController());
+    var controller2 = Get.put(ProductController());
 
     return Scaffold(
       backgroundColor: lightGrey,
@@ -153,29 +155,49 @@ class CartScreen extends StatelessWidget {
                                     FirestoreServices.deleteDocument(item.id);
                                   },
                                 ),
-                                Row(
-                                  children: [
-                                    _qtyButton(
-                                      icon: Icons.remove,
-                                      onTap: () {
-                                        // controller.decreaseQty(item);
-                                      },
-                                    ),
-                                    const SizedBox(width: 8),
-                                    Text(
-                                      "$qty",
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
+                                Obx(
+                                  () => Row(
+                                    children: [
+                                      IconButton(
+                                        onPressed: () {
+                                          controller2.decreaseQuantity();
+                                          controller2.calculateTotalPrice(
+                                            int.parse(m['P_price']),
+                                          );
+                                        },
+                                        icon: const Icon(
+                                          Icons.remove_circle_outline,
+                                        ),
                                       ),
-                                    ),
-                                    const SizedBox(width: 8),
-                                    _qtyButton(
-                                      icon: Icons.add,
-                                      onTap: () {
-                                        // controller.increaseQty(item);
-                                      },
-                                    ),
-                                  ],
+                                      Text(
+                                        controller.quantity.value.toString(),
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      IconButton(
+                                        onPressed: () {
+                                          controller2.increaseQuantity(
+                                            int.parse(m['P_quantity']),
+                                          );
+                                          controller2.calculateTotalPrice(
+                                            int.parse(m['P_price']),
+                                          );
+                                        },
+                                        icon: const Icon(
+                                          Icons.add_circle_outline,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 8),
+                                      Text(
+                                        "(${m['P_quantity']} available)",
+                                        style: const TextStyle(
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),

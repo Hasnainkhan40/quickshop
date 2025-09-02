@@ -1,8 +1,11 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quickshop/consts/consts.dart';
 import 'package:quickshop/controller/product_controller.dart';
 import 'package:quickshop/views/chat_screen/chat_screen.dart';
+import 'package:quickshop/views/widgets_common/massage.dart';
 import 'package:quickshop/views/widgets_common/our_button.dart';
 
 class ItemDetails extends StatelessWidget {
@@ -57,7 +60,7 @@ class ItemDetails extends StatelessWidget {
                   controller.isFav.value
                       ? Icons.favorite
                       : Icons.favorite_border,
-                  color: controller.isFav.value ? Colors.red : Colors.black,
+                  color: controller.isFav.value ? Colors.orange : Colors.black,
                 ),
               ),
             ),
@@ -435,16 +438,16 @@ class ItemDetails extends StatelessWidget {
                   title: data['P_name'],
                   tprice: controller.totalprice.value,
                 );
-                Get.snackbar(
-                  "Success",
+                showModernToast(
+                  context,
+                  "Success"
                   "Added to cart",
-                  snackPosition: SnackPosition.BOTTOM,
                 );
               } else {
-                Get.snackbar(
-                  "Error",
+                showModernToast(
+                  context,
+                  "Error  "
                   "Minimum 1 product required",
-                  snackPosition: SnackPosition.BOTTOM,
                 );
               }
             },

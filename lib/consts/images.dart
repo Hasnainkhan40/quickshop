@@ -1,6 +1,7 @@
 //icons
 const icAdd = "assets/icons/add.png";
-const icAppLogo = "assets/icons/app_logo.png";
+const icAppLogo2 = "assets/icons/app_logo.png";
+const icAppLogo = "assets/icons/icAppLogos.png";
 const icAppleLogo = "assets/icons/apple_logo.png";
 const icArrow = "assets/icons/arrow.png";
 const icBell = "assets/icons/bell.png";
@@ -130,3 +131,4 @@ const imgTwocheckout = "assets/images/twocheckout.png";
 const imgVogue = "assets/images/vogue.png";
 const imgWallet = "assets/images/wallet.png";
 const cosmeticimg = "assets/images/p2.jpeg";
+const nike = "assets/icons/b5.jpeg";

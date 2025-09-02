@@ -6,6 +6,10 @@ import 'package:quickshop/controller/home_controller.dart';
 
 class CartController extends GetxController {
   var totalp = 0.obs;
+  var quantity = 0.obs;
+  var colorIndex = 0.obs;
+  var totalprice = 0.obs;
+  var currentImageIndex = 0.obs;
 
   //text controller for shipping details
   var addressController = TextEditingController();

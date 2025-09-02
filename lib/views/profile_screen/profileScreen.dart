@@ -49,10 +49,14 @@ class Profilescreen extends StatelessWidget {
                     width: double.infinity,
                     height: 300,
                     decoration: const BoxDecoration(
-                      color: orangeColor, // dark green shade
+                      image: DecorationImage(
+                        image: AssetImage("assets/images/orange-wave.png"),
+                        fit: BoxFit.cover,
+                      ),
+                      // color: orangeColor, // dark green shade
                       borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(40),
-                        bottomRight: Radius.circular(40),
+                        bottomLeft: Radius.circular(20),
+                        bottomRight: Radius.circular(20),
                       ),
                     ),
                     child: Column(

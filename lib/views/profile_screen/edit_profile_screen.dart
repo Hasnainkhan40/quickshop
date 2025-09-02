@@ -164,7 +164,7 @@ class EditProfileScreen extends StatelessWidget {
                         ).box.white.shadowSm
                         .padding(const EdgeInsets.all(16))
                         .margin(const EdgeInsets.only(top: 50))
-                        .rounded
+                        .roundedLg
                         .make(),
               ),
             ),

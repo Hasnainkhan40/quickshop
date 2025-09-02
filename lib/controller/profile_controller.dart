@@ -11,6 +11,7 @@ import 'package:quickshop/consts/consts.dart';
 import 'package:path/path.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:quickshop/consts/keys.dart';
+import 'package:quickshop/views/widgets_common/massage.dart';
 
 class ProfileController extends GetxController {
   var profileImagePath = ''.obs; // local file path
@@ -112,12 +113,14 @@ class ProfileController extends GetxController {
           password: oldpassController.text,
         );
 
-        VxToast.show(context, msg: "Profile picture updated successfully!");
+        // VxToast.show(context, msg: "Profile picture updated successfully!");
+        showModernToast(context, "Profile picture updated successfully!");
       } else {
         throw 'Failed to upload profile picture. Please try again.';
       }
     } catch (e) {
-      VxToast.show(context, msg: e.toString());
+      //VxToast.show(context, msg: e.toString());
+      showModernToast(context, e.toString());
     }
   }
 

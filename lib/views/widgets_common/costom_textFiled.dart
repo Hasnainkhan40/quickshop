@@ -26,11 +26,11 @@ Widget costomTextField({String? title, String? hint, controller, isPass}) {
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12), // rounded corners
-            borderSide: BorderSide.none,
+            borderSide: BorderSide(color: Colors.black, width: 1.2),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: Colors.black, width: 1.2),
+            borderSide: const BorderSide(color: Colors.red, width: 1.2),
           ),
         ),
       ),

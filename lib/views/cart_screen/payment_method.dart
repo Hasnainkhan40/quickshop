@@ -5,6 +5,7 @@ import 'package:quickshop/consts/list.dart';
 import 'package:quickshop/consts/loding_indicator.dart';
 import 'package:quickshop/controller/cart_controller.dart';
 import 'package:quickshop/views/homescreen/home.dart';
+import 'package:quickshop/views/widgets_common/massage.dart';
 import 'package:quickshop/views/widgets_common/our_button.dart';
 
 class PaymentScreene extends StatelessWidget {
@@ -30,7 +31,8 @@ class PaymentScreene extends StatelessWidget {
                         totalAmount: controller.totalp.value,
                       );
                       await controller.clearCart();
-                      VxToast.show(context, msg: "Order placed successfuly");
+                      //VxToast.show(context, msg: "Order placed successfuly");
+                      showModernToast(context, "Order placed successfuly");
                       Get.offAll(Homes());
                     },
                     color: orangeColor,
