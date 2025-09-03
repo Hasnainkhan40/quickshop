@@ -5,12 +5,6 @@ import 'package:quickshop/views/splash_screen/splash_screen.dart';
 import 'package:get/get.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-// String Publishable_key =
-//     "[REMOVED]";
-
-// String Secret_key =
-//     "[REMOVED]";
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
