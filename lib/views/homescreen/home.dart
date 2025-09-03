@@ -43,7 +43,7 @@ class Homes extends StatelessWidget {
             margin: const EdgeInsets.all(12),
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 14),
             decoration: BoxDecoration(
-              color: Colors.black54,
+              color: Colors.black.withOpacity(0.90),
               borderRadius: BorderRadius.circular(40),
               boxShadow: [
                 BoxShadow(

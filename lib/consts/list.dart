@@ -24,7 +24,7 @@ const categoriesList = [
 const categoryImages = [
   imgS1,
   imgFc1,
-  imgFc3,
+  imgP1,
   imgFc3,
   imgFc4,
   imgFc5,

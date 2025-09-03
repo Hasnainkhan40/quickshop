@@ -155,49 +155,29 @@ class CartScreen extends StatelessWidget {
                                     FirestoreServices.deleteDocument(item.id);
                                   },
                                 ),
-                                Obx(
-                                  () => Row(
-                                    children: [
-                                      IconButton(
-                                        onPressed: () {
-                                          controller2.decreaseQuantity();
-                                          controller2.calculateTotalPrice(
-                                            int.parse(m['P_price']),
-                                          );
-                                        },
-                                        icon: const Icon(
-                                          Icons.remove_circle_outline,
-                                        ),
+                                Row(
+                                  children: [
+                                    _qtyButton(
+                                      icon: Icons.remove,
+                                      onTap: () {
+                                        // controller.decreaseQty(item);
+                                      },
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Text(
+                                      "$qty",
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
                                       ),
-                                      Text(
-                                        controller.quantity.value.toString(),
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      IconButton(
-                                        onPressed: () {
-                                          controller2.increaseQuantity(
-                                            int.parse(m['P_quantity']),
-                                          );
-                                          controller2.calculateTotalPrice(
-                                            int.parse(m['P_price']),
-                                          );
-                                        },
-                                        icon: const Icon(
-                                          Icons.add_circle_outline,
-                                        ),
-                                      ),
-                                      const SizedBox(width: 8),
-                                      Text(
-                                        "(${m['P_quantity']} available)",
-                                        style: const TextStyle(
-                                          color: Colors.grey,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    _qtyButton(
+                                      icon: Icons.add,
+                                      onTap: () {
+                                        // controller.increaseQty(item);
+                                      },
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),

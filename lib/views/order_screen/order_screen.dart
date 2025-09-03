@@ -50,36 +50,42 @@ class OrderScreen extends StatelessWidget {
               itemCount: data.length,
               itemBuilder: (BuildContext context, int index) {
                 return ListTile(
-                  leading:
-                      "${index + 1}".text
-                          .fontFamily(bold)
-                          .color(darkFontGrey)
-                          .xl
-                          .make(),
-                  title:
-                      data[index]['order_code']
-                          .toString()
-                          .text
-                          .color(redColor)
-                          .fontFamily(semibold)
-                          .make(),
-                  subtitle:
-                      data[index]['total_amount']
-                          .toString()
-                          .numCurrency
-                          .text
-                          .fontFamily(bold)
-                          .make(),
-                  trailing: IconButton(
-                    onPressed: () {
-                      Get.to(() => OrderDetails(data: data[index]));
-                    },
-                    icon: const Icon(
-                      Icons.arrow_forward_ios_sharp,
-                      color: darkFontGrey,
-                    ),
-                  ),
-                ).box.color(Colors.grey.shade100).roundedLg.make();
+                      leading:
+                          "${index + 1}".text
+                              .fontFamily(bold)
+                              .color(darkFontGrey)
+                              .xl
+                              .make(),
+                      title:
+                          data[index]['order_code']
+                              .toString()
+                              .text
+                              .color(redColor)
+                              .fontFamily(semibold)
+                              .make(),
+                      subtitle:
+                          data[index]['total_amount']
+                              .toString()
+                              .numCurrency
+                              .text
+                              .fontFamily(bold)
+                              .make(),
+                      trailing: IconButton(
+                        onPressed: () {
+                          Get.to(() => OrderDetails(data: data[index]));
+                        },
+                        icon: const Icon(
+                          Icons.arrow_forward_ios_sharp,
+                          color: darkFontGrey,
+                        ),
+                      ),
+                    ).box
+                    .padding(EdgeInsets.all(8))
+                    .margin(EdgeInsets.all(3))
+                    .white
+                    .shadowSm
+                    .roundedLg
+                    .make();
               },
             );
           }

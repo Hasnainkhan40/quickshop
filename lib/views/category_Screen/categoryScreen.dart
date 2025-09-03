@@ -39,28 +39,26 @@ class Categoryscreen extends StatelessWidget {
             ),
             itemBuilder: (context, index) {
               return Column(
-                    children: [
-                      14.heightBox,
-                      Image.asset(
-                        categoryImages[index],
-                        height: 100,
-                        width: 200,
-                        fit: BoxFit.cover,
-                      ),
-                      10.heightBox,
-                      categoriesList[index].text
-                          .color(darkFontGrey)
-                          .align(TextAlign.center)
-                          .make(),
-                    ],
-                  ).box.white.roundedLg
-                  .clip(Clip.antiAlias)
-                  .outerShadowSm
-                  .make()
-                  .onTap(() {
-                    controller.getSubCategories(categoriesList[index]);
-                    Get.to(() => CategoryDetails(title: categoriesList[index]));
-                  });
+                children: [
+                  14.heightBox,
+                  Image.asset(
+                    categoryImages[index],
+                    height: 100,
+                    width: 200,
+                    fit: BoxFit.cover,
+                  ),
+                  10.heightBox,
+                  categoriesList[index].text
+                      .color(darkFontGrey)
+                      .align(TextAlign.center)
+                      .make(),
+                ],
+              ).box.white.roundedLg.clip(Clip.antiAlias).shadowSm.make().onTap(
+                () {
+                  controller.getSubCategories(categoriesList[index]);
+                  Get.to(() => CategoryDetails(title: categoriesList[index]));
+                },
+              );
             },
           ),
         ),

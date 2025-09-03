@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:get/utils.dart';
 import 'package:quickshop/consts/consts.dart';
 import 'package:quickshop/views/order_screen/componets/order_placed_details.dart';
 import 'package:quickshop/views/order_screen/componets/order_status.dart';
@@ -13,7 +11,24 @@ class OrderDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: lightGrey,
-      appBar: AppBar(title: "Order Details".text.fontFamily(semibold).make()),
+      appBar: AppBar(
+        elevation: 0,
+        centerTitle: true,
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
+          onPressed: () => Navigator.pop(context),
+        ),
+
+        title: const Text(
+          "Orders Details",
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+          ),
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(

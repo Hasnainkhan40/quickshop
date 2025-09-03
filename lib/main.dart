@@ -3,18 +3,20 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:quickshop/consts/consts.dart';
 import 'package:quickshop/views/splash_screen/splash_screen.dart';
 import 'package:get/get.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-String Publishable_key =
-    "[REMOVED]";
+// String Publishable_key =
+//     "[REMOVED]";
 
-String Secret_key =
-    "[REMOVED]";
+// String Secret_key =
+//     "[REMOVED]";
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp();
-  Stripe.publishableKey = Publishable_key;
+  await dotenv.load(fileName: ".env");
+  Stripe.publishableKey = dotenv.env['PUBLISHABLE_KEY']!;
   Stripe.instance.applySettings();
 
   runApp(const MyApp());
