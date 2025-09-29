@@ -70,14 +70,27 @@ class _GetstarttedState extends State<Getstartted> {
                   ),
                 ),
                 const SizedBox(height: 12),
-                Text(
-                  "Lorem ipsum dolor sit amet consectetur.\nLorem id sit",
-                  style: GoogleFonts.poppins(
-                    fontSize: 14,
-                    color: Colors.black54,
-                    height: 1.4,
+
+                ShaderMask(
+                  shaderCallback:
+                      (bounds) => const LinearGradient(
+                        colors: [Colors.orange, Colors.deepOrangeAccent],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ).createShader(bounds),
+                  child: Text(
+                    "Shop your favorite items\nEasily, Fast & Secure ✨",
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white, // Needed for ShaderMask
+                      height: 1.6,
+                      letterSpacing: 0.5,
+                    ),
                   ),
                 ),
+
                 const SizedBox(height: 40),
 
                 // ✅ Continue Button
