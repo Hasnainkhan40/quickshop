@@ -43,14 +43,9 @@ class LoginScreen extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 40, left: 20, right: 20),
                   child: Column(
                     children: [
-                      Center(
-                        child: Image.asset(
-                          icAppLogo, // 🔹 Replace with your asset
-                          height: 100,
-                        ),
-                      ),
+                      Center(child: Image.asset(icAppLogo, height: 100)),
                       const SizedBox(height: 15),
-                      // Title
+
                       Text(
                         "Welcome Back 👋",
                         style: TextStyle(
@@ -120,7 +115,6 @@ class LoginScreen extends StatelessWidget {
                                   .loginMethod(context: context)
                                   .then((value) {
                                     if (value != null) {
-                                      //  VxToast.show(context, msg: loggedin);
                                       showModernToast(context, loggedin);
 
                                       Get.to(() => const Homes());

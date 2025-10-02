@@ -19,7 +19,7 @@ void showModernToast(BuildContext context, String message) {
             return Opacity(
               opacity: value,
               child: Transform.translate(
-                offset: Offset(0, 20 * (1 - value)), // smooth slide up
+                offset: Offset(0, 20 * (1 - value)),
                 child: child,
               ),
             );
@@ -29,17 +29,14 @@ void showModernToast(BuildContext context, String message) {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(18),
               child: BackdropFilter(
-                filter: ImageFilter.blur(
-                  sigmaX: 10,
-                  sigmaY: 10,
-                ), // 👈 blur effect
+                filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                 child: Container(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 20,
                     vertical: 12,
                   ),
                   decoration: BoxDecoration(
-                    color: Colors.black, // glass effect
+                    color: Colors.black,
                     borderRadius: BorderRadius.circular(18),
                     boxShadow: [
                       BoxShadow(

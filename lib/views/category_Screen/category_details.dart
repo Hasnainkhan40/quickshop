@@ -247,7 +247,6 @@ class _CategoryDetailsState extends State<CategoryDetails> {
     );
   }
 
-  /// Small helper widget for color dots
   Widget _colorDot(Color color) {
     return Container(
       margin: const EdgeInsets.only(right: 6),

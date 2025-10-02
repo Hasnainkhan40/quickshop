@@ -7,7 +7,7 @@ import 'package:quickshop/views/widgets_common/our_button.dart';
 Widget exitDialog(BuildContext context) {
   return Dialog(
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-    backgroundColor: Colors.transparent, // Glassmorphism effect
+    backgroundColor: Colors.transparent,
     elevation: 0,
     child: ClipRRect(
       borderRadius: BorderRadius.circular(20),
@@ -37,7 +37,6 @@ Widget exitDialog(BuildContext context) {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                // 🔹 Animated Icon
                 TweenAnimationBuilder<double>(
                   tween: Tween(begin: 0, end: 1),
                   duration: const Duration(milliseconds: 500),
@@ -59,7 +58,6 @@ Widget exitDialog(BuildContext context) {
                 ),
                 const SizedBox(height: 18),
 
-                // 🔹 Title
                 Text(
                   "Exit App?",
                   style: TextStyle(
@@ -70,7 +68,6 @@ Widget exitDialog(BuildContext context) {
                 ),
                 const SizedBox(height: 10),
 
-                // 🔹 Subtitle
                 Text(
                   "Do you really want to close QuickShop?",
                   textAlign: TextAlign.center,
@@ -82,7 +79,6 @@ Widget exitDialog(BuildContext context) {
                 ),
                 const SizedBox(height: 22),
 
-                // 🔹 Buttons
                 Row(
                   children: [
                     Expanded(

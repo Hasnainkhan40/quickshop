@@ -113,13 +113,11 @@ class ProfileController extends GetxController {
           password: oldpassController.text,
         );
 
-        // VxToast.show(context, msg: "Profile picture updated successfully!");
         showModernToast(context, "Profile picture updated successfully!");
       } else {
         throw 'Failed to upload profile picture. Please try again.';
       }
     } catch (e) {
-      //VxToast.show(context, msg: e.toString());
       showModernToast(context, e.toString());
     }
   }

@@ -6,7 +6,7 @@ import 'package:quickshop/controller/home_controller.dart';
 
 class ChatsController extends GetxController {
   final ScrollController scrollController = ScrollController();
-  var isNearBottom = true.obs; // 👈 track scroll position
+  var isNearBottom = true.obs;
 
   @override
   void onInit() {

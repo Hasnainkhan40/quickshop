@@ -93,7 +93,6 @@ class ProductController extends GetxController {
           'added_by': currentUser!.uid,
         })
         .catchError((error) {
-          //VxToast.show(context, msg: error.toString());
           showModernToast(context, error.toString());
         });
   }

@@ -14,7 +14,7 @@ class ChatScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var controller = Get.put(ChatsController());
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F8F5), // ✅ light mint background
+      backgroundColor: const Color(0xFFF5F8F5),
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
@@ -22,14 +22,11 @@ class ChatScreen extends StatelessWidget {
         automaticallyImplyLeading: false,
         title: Row(
           children: [
-            // const SizedBox(width: 8),
             Padding(
               padding: const EdgeInsets.only(left: 15),
               child: CircleAvatar(
                 radius: 22,
-                backgroundImage: AssetImage(
-                  "assets/images/s9.jpg",
-                ), // ✅ replace with friend image
+                backgroundImage: AssetImage("assets/images/s9.jpg"),
               ),
             ),
             const SizedBox(width: 12),
@@ -113,7 +110,7 @@ class ChatScreen extends StatelessWidget {
                                       },
                                     ),
 
-                                    // 👇 Show "New message" button if not at bottom
+                                    // Show "New message" button if not at bottom
                                     if (!controller.isNearBottom.value)
                                       Positioned(
                                         bottom: 10,
@@ -138,10 +135,9 @@ class ChatScreen extends StatelessWidget {
                       ),
             ),
             30.heightBox,
-            // ✅ Message Input Field
+            //  Message Input Field
             Row(
               children: [
-                // ✅ Input Box
                 Expanded(
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -153,7 +149,7 @@ class ChatScreen extends StatelessWidget {
                     child: TextFormField(
                       controller: controller.msgController,
                       minLines: 1,
-                      maxLines: 4, // ✅ expands for long messages
+                      maxLines: 4,
                       decoration: const InputDecoration(
                         hintText: "Message...",
                         border: InputBorder.none,
@@ -163,7 +159,7 @@ class ChatScreen extends StatelessWidget {
                 ),
                 const SizedBox(width: 10),
 
-                // ✅ Mic / Send Button
+                //  Mic / Send Button
                 GestureDetector(
                   onTap: () {
                     if (controller.msgController.text.trim().isNotEmpty) {
@@ -177,9 +173,8 @@ class ChatScreen extends StatelessWidget {
                     child: IconButton(
                       icon: Icon(
                         controller.msgController.text.trim().isEmpty
-                            ? Icons
-                                .send // 📩 show send when typing
-                            : Icons.mic, // 🎤 show mic when empty
+                            ? Icons.send
+                            : Icons.mic,
                         color: Colors.white,
                       ),
                       onPressed: () {

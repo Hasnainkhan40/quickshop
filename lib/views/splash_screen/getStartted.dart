@@ -22,7 +22,6 @@ class _GetstarttedState extends State<Getstartted> {
       backgroundColor: lightGrey,
       body: Stack(
         children: [
-          // ✅ Top wave pattern (instead of solid color)
           Positioned(
             top: 0,
             left: 0,
@@ -38,7 +37,6 @@ class _GetstarttedState extends State<Getstartted> {
             ),
           ),
 
-          // ✅ Bottom white curve
           Align(
             alignment: Alignment.center,
             child: Transform.rotate(
@@ -54,7 +52,6 @@ class _GetstarttedState extends State<Getstartted> {
             ),
           ),
 
-          // ✅ Content
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 40),
             child: Column(
@@ -84,7 +81,7 @@ class _GetstarttedState extends State<Getstartted> {
                     style: GoogleFonts.poppins(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
-                      color: Colors.white, // Needed for ShaderMask
+                      color: Colors.white,
                       height: 1.6,
                       letterSpacing: 0.5,
                     ),
@@ -93,7 +90,6 @@ class _GetstarttedState extends State<Getstartted> {
 
                 const SizedBox(height: 40),
 
-                // ✅ Continue Button
                 Align(
                   alignment: Alignment.centerRight,
                   child: ElevatedButton.icon(
@@ -142,7 +138,6 @@ class TopWaveClipper extends CustomClipper<Path> {
   Path getClip(Size size) {
     var path = Path();
 
-    // Start from top-left
     path.lineTo(0, 40);
 
     var firstControlPoint = Offset(size.width / 4, 80);
@@ -163,7 +158,6 @@ class TopWaveClipper extends CustomClipper<Path> {
       secondEndPoint.dy,
     );
 
-    // Finish at top-right
     path.lineTo(size.width, 0);
     path.close();
     return path;

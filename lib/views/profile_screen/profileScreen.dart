@@ -53,7 +53,7 @@ class Profilescreen extends StatelessWidget {
                         image: AssetImage("assets/images/orange-wave.png"),
                         fit: BoxFit.cover,
                       ),
-                      // color: orangeColor, // dark green shade
+
                       borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(20),
                         bottomRight: Radius.circular(20),
@@ -161,7 +161,6 @@ class Profilescreen extends StatelessWidget {
                   // ),
                   const SizedBox(height: 20),
 
-                  // Account Overview section
                   Expanded(
                     child: SingleChildScrollView(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -179,7 +178,7 @@ class Profilescreen extends StatelessWidget {
                                   color: Colors.black87,
                                 ),
                               ),
-                              //SizedBox(width: 5),
+
                               Align(
                                 alignment: Alignment.topRight,
                                 child: Icon(

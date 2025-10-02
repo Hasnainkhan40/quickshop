@@ -31,7 +31,7 @@ class PaymentScreene extends StatelessWidget {
                         totalAmount: controller.totalp.value,
                       );
                       await controller.clearCart();
-                      //VxToast.show(context, msg: "Order placed successfuly");
+
                       showModernToast(context, "Order placed successfuly");
                       Get.offAll(Homes());
                     },

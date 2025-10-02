@@ -46,10 +46,10 @@ class Searchscreen extends StatelessWidget {
               padding: EdgeInsets.only(top: 10, left: 15, right: 4),
               child: GridView(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, // 2 products in a row
+                  crossAxisCount: 2,
                   crossAxisSpacing: 12,
                   mainAxisSpacing: 12,
-                  childAspectRatio: 0.15, // control card height/width
+                  childAspectRatio: 0.15,
                 ),
                 children:
                     filtered
@@ -234,7 +234,6 @@ class Searchscreen extends StatelessWidget {
     );
   }
 
-  /// Small helper widget for color dots
   Widget _colorDot(Color color) {
     return Container(
       margin: const EdgeInsets.only(right: 6),

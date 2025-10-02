@@ -37,7 +37,6 @@ class ShippingScreen extends StatelessWidget {
             final totalAmount = controller.totalp.value;
 
             if (address.length <= 10) {
-              //VxToast.show(context, msg: "Please fill the form");
               showModernToast(context, "Please fill the form");
               return;
             }
@@ -54,16 +53,13 @@ class ShippingScreen extends StatelessWidget {
 
               if (paymentResult == null || paymentResult == "incomplete") {
                 VxToast.show(
-                  // ignore: use_build_context_synchronously
                   context,
                   msg: "⚠️ You have not filled Stripe payment method",
                 );
-                return; // stop here, don't place order
+                return;
               }
 
               if (paymentResult == "canceled") {
-                // ignore: use_build_context_synchronously
-                //VxToast.show(context, msg: "❌ Payment was canceled");
                 showModernToast(context, "❌ Payment was canceled");
                 return;
               }
@@ -78,12 +74,8 @@ class ShippingScreen extends StatelessWidget {
               // clear cart
               await controller.clearCart();
 
-              // ignore: use_build_context_synchronously
-              //VxToast.show(context, msg: "Order placed successfully ✅");
               showModernToast(context, "Order placed successfully ✅");
             } catch (e) {
-              // ignore: use_build_context_synchronously
-              // VxToast.show(context, msg: "Payment failed: $e");
               showModernToast(context, "Payment failed: $e");
             }
           },

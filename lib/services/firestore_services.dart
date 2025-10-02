@@ -47,6 +47,7 @@ class FirestoreServices {
         .snapshots();
   }
 
+  //Get all orders placed by the currently logged-in user.
   static getAllOrders() {
     return firebaseFirestore
         .collection(ordersCollection)
@@ -54,6 +55,7 @@ class FirestoreServices {
         .snapshots();
   }
 
+  // Get all products that the current user has added to their wishlist.
   static getAllWishlist() {
     return firebaseFirestore
         .collection(productsCollection)
@@ -61,6 +63,7 @@ class FirestoreServices {
         .snapshots();
   }
 
+  // Get all chat threads where the current user is the sender (`fromId`).
   static getAllMessages() {
     return firebaseFirestore
         .collection(chatsCollction)
@@ -68,6 +71,7 @@ class FirestoreServices {
         .snapshots();
   }
 
+  // Returns a list of counts in the same order as above.
   static getCounts() async {
     var res = await Future.wait([
       firebaseFirestore
@@ -95,10 +99,12 @@ class FirestoreServices {
     return res;
   }
 
+  // Get all products in the database (real-time updates).
   static allproducts() {
     return firebaseFirestore.collection(productsCollection).snapshots();
   }
 
+  // Get all products marked as featured (`is_featured = true`).
   static getFeaturedProduct() {
     return firebaseFirestore
         .collection(productsCollection)
@@ -106,6 +112,7 @@ class FirestoreServices {
         .get();
   }
 
+  // Search products by [title].
   static searchProducts(title) {
     return firebaseFirestore.collection(productsCollection).get();
   }

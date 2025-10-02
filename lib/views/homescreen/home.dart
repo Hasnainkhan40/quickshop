@@ -22,7 +22,6 @@ class Homes extends StatelessWidget {
       Profilescreen(),
     ];
 
-    // ignore: deprecated_member_use
     return WillPopScope(
       onWillPop: () async {
         showDialog(
@@ -36,7 +35,6 @@ class Homes extends StatelessWidget {
         extendBody: true,
         body: Obx(() => navBody[controller.currentNavIndex.value]),
 
-        /// ✅ Custom Modern Bottom Nav Bar
         bottomNavigationBar: Obx(
           () => Container(
             height: 65,
@@ -47,7 +45,6 @@ class Homes extends StatelessWidget {
               borderRadius: BorderRadius.circular(40),
               boxShadow: [
                 BoxShadow(
-                  // ignore: deprecated_member_use
                   color: Colors.black.withOpacity(0.15),
                   blurRadius: 10,
                   offset: const Offset(0, 5),
@@ -89,7 +86,6 @@ class Homes extends StatelessWidget {
     );
   }
 
-  /// 🔹 Custom Nav Item Widget (active → pill shape with label, inactive → icon only)
   Widget _buildNavItem({
     required String image,
     required String label,
@@ -132,83 +128,3 @@ class Homes extends StatelessWidget {
     );
   }
 }
-
-// import 'package:get/get.dart';
-// import 'package:get/get_core/src/get_main.dart';
-// import 'package:quickshop/consts/consts.dart';
-// import 'package:quickshop/controller/home_controller.dart';
-// import 'package:quickshop/views/cart_screen/cartScreen.dart';
-// import 'package:quickshop/views/category_Screen/categoryScreen.dart';
-// import 'package:quickshop/views/homescreen/homeScreen.dart';
-// import 'package:quickshop/views/profile_screen/profileScreen.dart';
-// import 'package:quickshop/views/widgets_common/exit_dailog.dart';
-
-// class Homes extends StatelessWidget {
-//   const Homes({super.key});
-//   @override
-//   Widget build(BuildContext context) {
-//     //init home controller
-//     var controller = Get.put(HomeController());
-
-//     var navbarItem = [
-//       BottomNavigationBarItem(
-//         icon: Image.asset(icHome, width: 26),
-//         label: home,
-//       ),
-//       BottomNavigationBarItem(
-//         icon: Image.asset(icCategories, width: 26),
-//         label: categories,
-//       ),
-//       BottomNavigationBarItem(
-//         icon: Image.asset(icCart, width: 26),
-//         label: cart,
-//       ),
-//       BottomNavigationBarItem(
-//         icon: Image.asset(icProfile, width: 26),
-//         label: account,
-//       ),
-//     ];
-
-//     var navBody = [
-//       const Homescreen(),
-//       const Categoryscreen(),
-//       const Cartscreen(),
-//       const Profilescreen(),
-//     ];
-
-//     return WillPopScope(
-//       onWillPop: () async {
-//         showDialog(
-//           barrierDismissible: false,
-//           context: context,
-//           builder: (context) => exitDialog(context),
-//         );
-//         return false;
-//       },
-//       child: Scaffold(
-//         body: Column(
-//           children: [
-//             Obx(
-//               () => Expanded(
-//                 child: navBody.elementAt(controller.currentNavIndex.value),
-//               ),
-//             ),
-//           ],
-//         ),
-//         bottomNavigationBar: Obx(
-//           () => BottomNavigationBar(
-//             currentIndex: controller.currentNavIndex.value,
-//             selectedItemColor: redColor,
-//             selectedLabelStyle: const TextStyle(fontFamily: semibold),
-//             type: BottomNavigationBarType.fixed,
-//             backgroundColor: whiteColor,
-//             items: navbarItem,
-//             onTap: (value) {
-//               controller.currentNavIndex.value = value;
-//             },
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }

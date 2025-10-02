@@ -175,14 +175,13 @@ class _SingupScreenState extends State<SingupScreen> {
                                         );
                                       })
                                       .then((value) {
-                                        //VxToast.show(context, msg: loggedin);
                                         showModernToast(context, loggedin);
 
                                         Get.offAll(() => const Homes());
                                       });
                                 } catch (e) {
                                   auth.signOut();
-                                  // VxToast.show(context, msg: e.toString());
+
                                   showModernToast(context, e.toString());
                                   controller.isLoding(false);
                                 }
